@@ -12,7 +12,7 @@ public class CourseList {
     }
 
     /**
-     * Filter a list of courses that have this director.
+     * Filter a list of courses by staff ID.
      * @param ID the ID of the staff member.
      * @return CourseList : list with all courses associated with the passed ID.
      */
