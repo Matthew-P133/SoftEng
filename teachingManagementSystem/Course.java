@@ -16,6 +16,19 @@ public class Course {
         teachingRequirements = new HashSet<>();
     }
 
+    /**
+     * Compares two courses based on name. If names equal, returns true. False, otherwise.
+     * @param course Object : should be of type Course.
+     * @return True if two courses share same name. False, otherwise.
+     */
+    @Override
+    public boolean equals(Object course){
+        if(course instanceof Course) {
+            return name.equals(((Course) course).name);
+        }
+        return false;
+    }
+
     public Set<String> getTeachingRequirements() {
         return teachingRequirements;
     }
