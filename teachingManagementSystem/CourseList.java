@@ -26,6 +26,7 @@ public class CourseList {
      * Filters the list by course name.
      * If it finds the course with the specified name, it will return that course.
      * Otherwise, if no courses with this name are in the list, it will return null.
+     * The method assumes that every course has a unique name.
      * @param courseName String - The name of the course to find.
      * @return Course - Returns Course object if exists within list. Returns null if does not exist.
      */
