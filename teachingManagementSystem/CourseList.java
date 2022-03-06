@@ -22,6 +22,19 @@ public class CourseList {
                     .collect(Collectors.toList()));
     }
 
+    /**
+     * Filters the list by course name.
+     * If it finds the course with the specified name, it will return that course.
+     * Otherwise, if no courses with this name are in the list, it will return null.
+     * @param courseName String - The name of the course to find.
+     * @return Course - Returns Course object if exists within list. Returns null if does not exist.
+     */
+    public Course filterByCourseName(String courseName){
+        return courses.parallelStream()
+                .filter(course -> course.equals(new Course(courseName, null, null)))
+                .findFirst().orElse(null);
+    }
+
     @Override
     public String toString(){
         StringBuilder returnString = new StringBuilder();
