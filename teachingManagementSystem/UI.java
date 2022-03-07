@@ -4,6 +4,13 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
+/**
+ * User Interface for the system.
+ *
+ * @author Hannah
+ *
+ */
+
 public class UI {
     static char role;
     static String name;
@@ -75,7 +82,7 @@ public class UI {
     public static void getName() {
         System.out.println("Please enter name eg. 'Mark' :");
 
-        name = checkForName(StaffList.getDirectors());
+        name = checkForName(ManagementSystem.getDirectors());
 
         System.out.println("Accessing system as " + name + ", continue? (y/n) :");
         char response = getCharInput();
@@ -154,19 +161,19 @@ public class UI {
         if (selectedString.contains("View training records")) {
             // view training records for a staff member
             System.out.println("Please enter the name of the person whose training records you would like to view:");
-            String searchName = checkForName(listOfAllStaffNames);
+            String searchName = checkForName(ManagementSystem.getListOfAllStaffNames());
             System.out.println("Training records for:" + searchName); // might not need this line
-            Staff.toString(searchName);
+            display(ManagementSystem.getTrainingRecords(searchName));
 
         } else if (selectedString.contains("View teaching staff")) {
             // view teaching staff
             System.out.println("All Teaching Staff:"); // might not need this line
-            StaffList.toString();
+            display(ManagementSystem.getTeachers());
 
         } else if (selectedString.contains("View courses")) {
             // view courses
             System.out.println("All Courses:"); // might not need this line
-            CourseList.toString();
+            display(ManagementSystem.getCourses());
 
         } else if (selectedString.contains("Update the training records")) {
             // get the training records of a staff member
@@ -190,7 +197,7 @@ public class UI {
         if (selectedString.contains("my courses")) {
             // view my courses
             System.out.println("Courses Directed by " + name + ":"); // might not need this line
-            CourseList.toString(name);
+            display(ManagementSystem.getCourses(name));
 
         } else if (selectedString.contains("Create new teaching requirements")) {
             // create new teaching requirements
