@@ -1,7 +1,7 @@
 public class Staff {
     // Attributes
     String name;
-    String id;
+    String ID;
 
     // Contructor
     public Staff(String name, String id){
@@ -14,8 +14,8 @@ public class Staff {
         return this.name;
     }
 
-    public String getId(){
-        return this.id;
+    public String getID(){
+        return this.ID;
     }
 
     // toString
