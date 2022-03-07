@@ -1,3 +1,13 @@
+package teachingManagementSystem;
+
+/**
+ * The StaffList class that stores staff objects.
+ * It also deals with getting out list of all teachers or a list of teacher filtered by name.
+ *
+ * @author Lin Yun Jen
+ *
+ */
+
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
@@ -18,16 +28,28 @@ public class StaffList {
         staffList.add(s);
     }
 
+    // get staff list
+    public List<Staff> getStaffList(){
+        return this.staffList;
+    }
+
     // get teachers
     public List<Staff> getTeachers(){
-        return this.staffList;
+        for(int i=0; i<staffList.size(); i++){
+            if(staffList.get(i) instanceof Teacher){
+                Teacher teacher = (Teacher)staffList.get(i);
+                teacherList.add(teacher);
+            }
+        }
+        return teacherList;
     }
 
     // get teachers (name)
     public List<Staff> getTeachers(String name){
-        for(int i=0; i<staffList.size(); i++){
-            if (staffList.get(i).getName().equals(name)){
-                teacherNameList.add(staffList.get(i));
+        teacherList = getTeachers();
+        for(int i=0; i<teacherList.size(); i++){
+            if (teacherList.get(i).getName().equals(name)){
+                teacherNameList.add(teacherList.get(i));
             }
         }
         return teacherNameList;
@@ -35,19 +57,18 @@ public class StaffList {
     
     // get teachers by training
     public List<Staff> getTeachersByTraining(Set<String> request){
-        for(int i=0; i<staffList.size(); i++){
-            if(staffList.get(i) instanceof Teacher){
-                Teacher teacher = (Teacher)staffList.get(i);
-                if(teacher.getTrainingStatus().contains(request)){
-                    teacherTraingList.add(staffList.get(i));
-                }
-                teacherList.add(teacher);
+        teacherList = getTeachers();
+        for(int i=0; i<teacherList.size(); i++){
+            Teacher teacher = (Teacher)teacherList.get(i);
+            if(teacher.getTrainingStatus().contains(request)){
+                teacherTraingList.add(teacherList.get(i));
             }
         }
         return teacherTraingList;
     }
 
     // toString
+    @Override
     public String toString(){
         String staffListOutput = "";
         for(int i=0;i<staffList.size();i++){

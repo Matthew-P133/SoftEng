@@ -1,3 +1,12 @@
+package teachingManagementSystem;
+
+/**
+ * The staff class.
+ *
+ * @author Lin Yun Jen
+ *
+ */
+
 public class Staff {
     // Attributes
     String name;
@@ -23,5 +32,4 @@ public class Staff {
         return this.name;
     }
 
-    
 }

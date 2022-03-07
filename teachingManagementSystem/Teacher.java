@@ -1,4 +1,13 @@
+package teachingManagementSystem;
+
 import java.util.Set;
+
+/**
+ * The Teacher class inherits the Staff class. 
+ * This class deals with the training data of teachers.
+ * @author Lin Yun Jen
+ *
+ */
 
 public class Teacher extends Staff{
     // A set to store a teacher's training
