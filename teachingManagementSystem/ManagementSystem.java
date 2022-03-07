@@ -26,7 +26,7 @@ public class ManagementSystem {
 	public ManagementSystem() {
 		boolean status = readFromFile(file);
 		if (!status) {
-			System.err.println("Could not read file, setting up new data structures.")
+			System.err.println("Could not read file, setting up new data structures.");
 		}
 	}
 	
@@ -133,7 +133,7 @@ public class ManagementSystem {
 		boolean status;
 		try(
 			FileInputStream fileInputStream = new FileInputStream(file);
-			ObjectInputStream objectInputStream = new ObjectInputStream(fileInputStream)
+			ObjectInputStream objectInputStream = new ObjectInputStream(fileInputStream);
 		) {
 			this.courses = (CourseList) objectInputStream.readObject();
 			this.staff = (StaffList) objectInputStream.readObject();
