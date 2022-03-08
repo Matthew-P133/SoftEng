@@ -15,11 +15,8 @@ public class UI {
     private static char role;
     private static String name;
     private static ArrayList<String> commands = new ArrayList<>();
-    private static boolean systemActive = true;
-    private static final managementSystem managementSystem = new managementSystem();
-    
-    
-    
+    private static boolean systemActive;
+
 
     /*
      * User Input Methods
@@ -73,12 +70,10 @@ public class UI {
             System.out.println(">>>>>> Entering Admin System. <<<<<<");
             name = "Admin";
             generateHelp(role);
-            ManagementSystem.start();
         } else if (role == 'c') {
             System.out.println(">>>>>> Entering Course Director System <<<<<<");
             getName();
             generateHelp(role);
-            ManagementSystem.start();
         } else {
             System.out.println("Invalid entry please try again.");
             getRole();
@@ -88,7 +83,7 @@ public class UI {
     public static void getName() {
         System.out.println("Please enter name eg. 'Mark' :");
 
-        name = checkForName(managementSystem.getDirectors());
+        name = checkForName(ManagementSystem.getDirectors());
 
         System.out.println("Accessing system as " + name + ", continue? (y/n) :");
         char response = getCharInput();
@@ -167,19 +162,19 @@ public class UI {
         if (selectedString.contains("View training records")) {
             // view training records for a staff member
             System.out.println("Please enter the name of the person whose training records you would like to view:");
-            String searchName = checkForName(managementSystem.getTeachers());
+            String searchName = checkForName(ManagementSystem.getTeachers());
             System.out.println("Training records for:" + searchName); // might not need this line
-            display(managementSystem.getTrainingRecords(searchName));
+            display(ManagementSystem.getTrainingRecords(searchName));
 
         } else if (selectedString.contains("View teaching staff")) {
             // view teaching staff
             System.out.println("All Teaching Staff:"); // might not need this line
-            display(managementSystem.getTeachers());
+            display(ManagementSystem.getTeachers());
 
         } else if (selectedString.contains("View courses")) {
             // view courses
             System.out.println("All Courses:"); // might not need this line
-            display(managementSystem.getCourses());
+            display(ManagementSystem.getCourses());
 
         } else if (selectedString.contains("Update the training records")) {
             // get the training records of a staff member
@@ -193,7 +188,7 @@ public class UI {
             // exit the system.
             systemActive = false;
             System.out.println("Exiting System.");
-            managementSystem.exit();
+            MementSystem.exit();
         }
     }
 
@@ -204,7 +199,7 @@ public class UI {
         if (selectedString.contains("my courses")) {
             // view my courses
             System.out.println("Courses Directed by " + name + ":"); // might not need this line
-            display(managementSystem.getCourses(name));
+            display(ManagementSystem.getCourses(name));
 
         } else if (selectedString.contains("Create new teaching requirements")) {
             // create new teaching requirements
@@ -230,6 +225,9 @@ public class UI {
      */
 
     public static void main(String[] args) {
+        systemActive = true;
+        ManagementSystem.start();
+
     	// UI ui = new UI();
         // ui.getRole();
         // while (ui.systemActive) {
