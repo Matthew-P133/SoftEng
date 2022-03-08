@@ -91,7 +91,13 @@ public class ManagementSystem {
 	
 	public static Set<String> getTraining(String teacherName) {
 		Set<String> training = null;
-		Teacher teacher = getTeachers(teacherName).get(0);
+		Teacher teacher = null;
+		try {
+			teacher = getTeachers(teacherName).get(0);
+		} catch (IndexOutOfBoundsException e) {
+			System.out.println("Sorry, can't find a teach with that name.");
+			return null;
+		}
 		
 		training = teacher.getTrainingStatus();
 		return training;

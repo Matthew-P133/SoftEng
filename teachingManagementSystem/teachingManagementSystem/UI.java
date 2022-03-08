@@ -222,8 +222,12 @@ public class UI {
 
     public static void display(Object o) {
         // display it
-        System.out.println(o.toString());
-        System.out.println("");
+    	if (o != null) {
+    		System.out.println(o.toString());
+        	System.out.println("");
+    	} else {
+    		System.out.println("Please try again...");
+    	}
 
 
     }
