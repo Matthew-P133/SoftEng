@@ -11,7 +11,7 @@ import java.util.Scanner;
  *
  */
 
-public class UI {
+public static class UI {
     private char role;
     private String name;
     private ArrayList<String> commands = new ArrayList<>();
@@ -24,22 +24,22 @@ public class UI {
     /*
      * User Input Methods
      */
-    public String getStringInput() {
+    public static String getStringInput() {
         Scanner s = new Scanner(System.in);
         return s.nextLine();
     }
 
-    public char getCharInput() {
+    public static char getCharInput() {
         String input = getStringInput();
         return input.charAt(0);
     }
 
-    public int getNumberInput() {
+    public static int getNumberInput() {
         char a = getCharInput();
         return Character.getNumericValue(a);
     }
 
-    public String checkForName(StaffList staffList) {
+    public static String checkForName(StaffList staffList) {
         while (true) {
             String userInputName = getStringInput();
 
@@ -55,7 +55,7 @@ public class UI {
     /*
      * System functionality Methods
      */
-    public void getRole() {
+    public static void getRole() {
         // first find out if they are admin or course director
         System.out.println("Please enter 'a' for admin or 'c' for course director: ");
         role = getCharInput();
@@ -83,7 +83,7 @@ public class UI {
         }
     }
 
-    public void getName() {
+    public static void getName() {
         System.out.println("Please enter name eg. 'Mark' :");
 
         name = checkForName(managementSystem.getDirectors());
@@ -97,7 +97,7 @@ public class UI {
         }
     }
 
-    public void generateHelp(char role) {
+    public static void generateHelp(char role) {
         // if user is admin
         if (role == 'a') {
             String viewTrainingRecords = "View training records for a staff member";
@@ -131,7 +131,7 @@ public class UI {
         commands.add(exitSystem);
     }
 
-    public void showHelp(char role) {
+    public static void showHelp(char role) {
         // display commands list
         System.out.println("System options: ");
         int count = 0;
@@ -158,7 +158,7 @@ public class UI {
         }
     }
 
-    public void doAdminAction(int selectedNumber) {
+    public static void doAdminAction(int selectedNumber) {
         String selectedString = commands.get(selectedNumber - 1);
         System.out.println("\n" + selectedString + ":");
 
@@ -195,7 +195,7 @@ public class UI {
         }
     }
 
-    public void doCourseDirectorAction(int selectedNumber) {
+    public static void doCourseDirectorAction(int selectedNumber) {
         String selectedString = commands.get(selectedNumber - 1);
         System.out.println("\n" + selectedString + ":");
 
@@ -219,7 +219,7 @@ public class UI {
         }
     }
 
-    public void display(Object o) {
+    public static void display(Object o) {
         // display it
     }
 
@@ -228,10 +228,10 @@ public class UI {
      */
 
     public static void main(String[] args) {
-    	UI ui = new UI();
-        ui.getRole();
-        while (ui.systemActive) {
-            ui.showHelp(ui.role);
-        }
+    	// UI ui = new UI();
+        // ui.getRole();
+        // while (ui.systemActive) {
+        //     ui.showHelp(ui.role);
+        // }
     }
 }
