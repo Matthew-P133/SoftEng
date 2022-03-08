@@ -232,7 +232,13 @@ public class UI {
         } else if (selectedString.equals(addCourse)) {
             System.out.println("Please enter the name of the course that you would like to add:");
             String newCourseName = getStringInput();
-            ManagementSystem.addCourse(newCourseName);
+
+            System.out.println("Please enter the name director for this course:");
+            // TODO check direcotor exists
+            String directorName = getStringInput();
+            ManagementSystem.addCourse(directorName, newCourseName);
+
+            System.out.println("New course: " + courseName + " directed by " + directorName);
 
         } else if (selectedString.equals(exitSystem)) {
             // exit the system.
