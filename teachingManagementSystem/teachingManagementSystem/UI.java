@@ -232,10 +232,9 @@ public class UI {
         systemActive = true;
         ManagementSystem.start();
 
-    	// UI ui = new UI();
-        // ui.getRole();
-        // while (ui.systemActive) {
-        //     ui.showHelp(ui.role);
-        // }
+        getRole();
+        while (systemActive) {
+            showHelp(role);
+        }
     }
 }

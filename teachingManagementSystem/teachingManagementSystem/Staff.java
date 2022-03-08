@@ -8,7 +8,7 @@ package teachingManagementSystem;
  */
 
 public class Staff {
-	static int nextID = 1
+	static int nextID = 1;
 	
     // Attributes
     String name;
