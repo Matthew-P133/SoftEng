@@ -36,19 +36,6 @@ public class UI {
         return Character.getNumericValue(a);
     }
 
-    public static String checkForName(StaffList staffList) {
-        while (true) {
-            String userInputName = getStringInput();
-
-            for (Staff eachStaffMember : staffList.getStaffList()) {
-                String staffName = eachStaffMember.getName();
-                if (staffName.toLowerCase().contains(userInputName.toLowerCase())) {
-                    return eachStaffMember.getName();
-                }
-            }
-        }
-    }
-
     /*
      * System functionality Methods
      */
@@ -83,7 +70,7 @@ public class UI {
     public static void getName() {
         System.out.println("Please enter name eg. 'Mark' :");
 
-        name = checkForName(ManagementSystem.getDirectors());
+        name = getStringInput();
 
         System.out.println("Accessing system as " + name + ", continue? (y/n) :");
         char response = getCharInput();
@@ -162,7 +149,7 @@ public class UI {
         if (selectedString.contains("View training records")) {
             // view training records for a staff member
             System.out.println("Please enter the name of the person whose training records you would like to view:");
-            String searchName = checkForName(ManagementSystem.getTeachers());
+            String searchName = getStringInput();
             System.out.println("Training records for: " + searchName); // might not need this line
             display(ManagementSystem.getTraining(searchName));
 
@@ -179,8 +166,10 @@ public class UI {
         } else if (selectedString.contains("Update the training records")) {
             // display the current training records
             System.out.println("Please enter the staff name to view training records:");
-            String inputName = checkForName(ManagementSystem.getTeachers());
+            String inputName = getStringInput();
             display(ManagementSystem.getTraining(inputName));
+
+            System.out.println("DEBUG: input Name match is "+ inputName);
 
             // get new training to add
             System.out.println("Please enter the training records that you wish to add: ");
