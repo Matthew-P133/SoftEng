@@ -13,11 +13,12 @@ import java.util.Set;
 
 public class Teacher extends Staff implements Serializable{
     // A set to store a teacher's training
-    private Set<String> trainingStatus = new HashSet<String>();
+    private Set<String> trainingStatus; 
 
     // Contructor
     public Teacher(String name){
         super(name);
+       trainingStatus = new HashSet<String>();
     }
 
     // add and remove

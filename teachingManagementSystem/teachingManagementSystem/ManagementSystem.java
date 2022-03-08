@@ -16,7 +16,7 @@ import java.util.Set;
  * @author Matthew
  *
  */
-public class ManagementSystem {
+public class ManagementSystem { 
 
 	private static String username = "admin";
 	private static final File file = new File("PTT_system_data");
@@ -56,30 +56,31 @@ public class ManagementSystem {
 	}
 	
 	
-	public static StaffList getTeachers(String teacherName) {
+	public static List<Teacher> getTeachers(String teacherName) {
 		
-		StaffList filteredTeachers = staff.getTeachers(teacherName);
+		List<Teacher> filteredTeachers = staff.getTeachers(teacherName);
 		return filteredTeachers;
 	}
 	
 	
-	public static StaffList getTeachers() {
+	public static List<Teacher> getTeachers() {
 		
-		StaffList filteredTeachers = staff.getTeachers();
+		List<Teacher> filteredTeachers = staff.getTeachers();
 		return filteredTeachers;
 	}
 	
 	
-	public static StaffList getTeachers(Set<String> requirements) {
+	public static List<Teacher> getTeachers(Set<String> requirements) {
 		
-		StaffList filteredTeachers = staff.getTeachers(requirements);
+		List<Teacher> filteredTeachers = staff.getTeachers(requirements);
 		return filteredTeachers;
 	}
 	
 	
 	public static boolean addTraining(String teacherName, String requirement) {
 		
-		Teacher teacher = (Teacher) getTeachers(teacherName).getStaffList().get(0); 
+		// assumes only one teacher with each name
+		Teacher teacher = getTeachers(teacherName).get(0); 
 		
 		if (teacher == null) {
 			return false;
@@ -90,7 +91,7 @@ public class ManagementSystem {
 	
 	public static Set<String> getTraining(String teacherName) {
 		Set<String> training = null;
-		Teacher teacher = (Teacher) getTeachers(teacherName).getStaffList().get(0);
+		Teacher teacher = getTeachers(teacherName).get(0);
 		
 		training = teacher.getTrainingStatus();
 		return training;
@@ -100,7 +101,7 @@ public class ManagementSystem {
 	
 	public static boolean removeTraining(String teacherName, String requirement) {
 		
-		Teacher teacher = (Teacher) getTeachers(teacherName).getStaffList().get(0); 
+		Teacher teacher = getTeachers(teacherName).get(0); 
 		
 		if (teacher == null) {
 			return false;
