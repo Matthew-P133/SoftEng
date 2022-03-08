@@ -99,13 +99,13 @@ public class UI {
         if (role == 'a') {
             String viewTrainingRecords = "View training records for a staff member";
             String viewTeachingStaff = "View teaching staff";
-            String addStaffMembers = "Add members of Staff";
+            String addTeacher = "Add a new teacher";
             String viewCourses = "View courses";
             String updateTrainingRecords = "Update the training records of a staff member";
 
             commands.add(viewTrainingRecords);
             commands.add(viewTeachingStaff);
-            commands.add(addStaffMembers);
+            commands.add(addTeacher);
             commands.add(viewCourses);
             commands.add(updateTrainingRecords);
 
@@ -180,9 +180,12 @@ public class UI {
             // get the training records of a staff member
             // TODO how to write this?
 
-        } else if (selectedString.contains("Add members")) {
-            // get the training records of a staff member
-            // TODO add a staff member and update their training
+        } else if (selectedString.contains("Add a new teacher")) {
+            // TODO add a Teacher and update their training
+            System.out.println("Please enter the name of the teacher that you would like to add:");
+            String newTeacherName = getStringInput();
+            ManagementSystem.addTeacher(newTeacherName);
+
 
         } else if (selectedString.contains("Exit")) {
             // exit the system.
