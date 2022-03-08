@@ -51,7 +51,7 @@ public class ManagementSystem {
 		return courses;
 	}
 	
-	public void addTeacher(String name) {
+	public static void addTeacher(String name) {
 		staff.addTeacher(name);
 	}
 	
