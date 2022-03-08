@@ -18,14 +18,14 @@ import java.util.Set;
  */
 public class managementSystem {
 
-	private String username = "admin";
-	private final File file = new File("PTT_system_data");
-	private CourseList courses;
-	private StaffList staffList;
-	private StaffList staff;
+	private static String username = "admin";
+	private static final File file = new File("PTT_system_data");
+	private static CourseList courses;
+	private static StaffList staffList;
+	private static StaffList staff;
 	
 	
-	public managementSystem() {
+	public static void start() {
 		boolean status = readFromFile(file);
 		if (!status) {
 			System.err.println("Could not read file, setting up new data structures.");
@@ -33,7 +33,8 @@ public class managementSystem {
 	}
 	
 	
-	public CourseList getCourses(String courseName) {
+	
+	public static CourseList getCourses(String courseName) {
 		
 		CourseList filteredCourses = null;
 		
@@ -42,7 +43,7 @@ public class managementSystem {
 		return filteredCourses;
 	}
 	
-	public CourseList getCourses() {
+	public static CourseList getCourses() {
 		
 		CourseList courses = null;
 		
@@ -52,7 +53,7 @@ public class managementSystem {
 	}
 	
 	
-	public StaffList getTeachers(String teacherName) {
+	public static StaffList getTeachers(String teacherName) {
 		
 		StaffList filteredTeachers = staffList.getTeachers(teacherName);
 		return filteredTeachers;
@@ -73,7 +74,7 @@ public class managementSystem {
 	}
 	
 	
-	public boolean addTraining(String teacherName, String requirement) {
+	public static boolean addTraining(String teacherName, String requirement) {
 		
 		Teacher teacher = (Teacher) getTeachers(teacherName).getStaffList().get(0); 
 		
@@ -85,7 +86,7 @@ public class managementSystem {
 	}
 	
 	
-	public boolean removeTraining(String teacherName, String requirement) {
+	public static boolean removeTraining(String teacherName, String requirement) {
 		
 		Teacher teacher = (Teacher) getTeachers(teacherName).getStaffList().get(0); 
 		
@@ -97,7 +98,7 @@ public class managementSystem {
 	}
 	
 	
-	public boolean addTeachingRequirements(String courseName, Set<String> requirements) {
+	public static boolean addTeachingRequirements(String courseName, Set<String> requirements) {
 		
 		Course course = getCourses(courseName).getCourseList().get(0);
 		
@@ -121,7 +122,7 @@ public class managementSystem {
 	}
 	
 	
-	public boolean makeTeachingRequest(String courseName) {
+	public static boolean makeTeachingRequest(String courseName) {
 		
 		Course course = getCourses(courseName).getCourseList().get(0);
 		if (course == null) {
@@ -139,19 +140,19 @@ public class managementSystem {
 	 * @param file - the file to be read from
 	 * @return boolean - indicates status of read operation
 	 */
-	private boolean readFromFile(File file) {
+	private static boolean readFromFile(File file) {
 		
 		boolean status = false;
 		try(
 			FileInputStream fileInputStream = new FileInputStream(file);
 			ObjectInputStream objectInputStream = new ObjectInputStream(fileInputStream);
 		) {
-			this.courses = (CourseList) objectInputStream.readObject();
-			this.staff = (StaffList) objectInputStream.readObject();
+			courses = (CourseList) objectInputStream.readObject();
+			staff = (StaffList) objectInputStream.readObject();
 			status = true;
 		} catch (IOException e) {
-			this.courses = new CourseList();
-			this.staffList = new StaffList();
+			courses = new CourseList();
+			staffList = new StaffList();
 			status = false;
 		} finally {
 			return status;
@@ -167,7 +168,7 @@ public class managementSystem {
 	 * @param file - the file to be write to
 	 * @return boolean - indicates status of write operation
 	 */
-	private boolean writeToFile(File file) {
+	private static boolean writeToFile(File file) {
 		
 		boolean status = false;
 		try(
@@ -185,18 +186,18 @@ public class managementSystem {
 	}
 
 
-	public StaffList getDirectors() {
+	public static StaffList getDirectors() {
 		// TODO 
 		return null;
 	}
 
 
-	public Object getTrainingRecords(String searchName) {
+	public static Object getTrainingRecords(String searchName) {
 		// TODO
 		return null;
 	}
 	
-	public void exit() {
+	public static void exit() {
 		writeToFile(file);
 	}
 	
