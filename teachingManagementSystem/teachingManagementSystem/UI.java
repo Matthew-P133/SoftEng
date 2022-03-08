@@ -1,8 +1,8 @@
 package teachingManagementSystem;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashMap;
 import java.util.Scanner;
+
 
 /**
  * User Interface for the system.
@@ -14,30 +14,9 @@ import java.util.Scanner;
 public class UI {
     private static char role;
     private static String name;
-    private static ArrayList<String> commands = new ArrayList<>(); 
     private static boolean systemActive;
+    static HashMap<Integer, String> commands = new HashMap<Integer, String>();
 
-
-    // below is subject to change, probably going to use a hashmap FIXME
-    // admin commands
-    static String viewTeachingStaff = "View teaching staff";
-    static String viewCourseDirectors = "View course directors";
-    static String viewTrainingRecords = "View training records for a staff member";
-    static String viewCourses = "View courses";
-    static String addTeacher = "Add a new teacher";
-    static String addDirector = "Add a new course director";
-    static String addCourse = "Add a new course";
-    static String updateTrainingRecords = "Update the training records of a staff member";
-    static String updateDirectorCourses = "Transfer a course to a new director";
-
-    // course director commands
-    static String viewDirectorCourses = "View my courses";
-    static String createTeachingRequirement = "Create new teaching requirements for a course";
-    static String viewTeachingRequirement = "View teaching requirements for a course";
-    static String updateTeachingRequest = "Create or delete a teaching request";
-    static String viewTeachingRequests = "View all teaching requests";
-
-    static String exitSystem = "Exit the system";
 
     /*
      * User Input Methods
@@ -102,45 +81,40 @@ public class UI {
         }
     }
 
-     /*
-     * FIXME use a hashmap??
-     */
     public static void generateHelp(char role) {
         // if user is admin
         if (role == 'a') {
-            commands.add(viewTeachingStaff);
-            commands.add(viewCourseDirectors);
-            commands.add(viewTrainingRecords);
-            commands.add(viewCourses);
-            commands.add(addTeacher);
-            commands.add(addDirector);
-            commands.add(addCourse);
-            commands.add(updateTrainingRecords);
-            commands.add(updateDirectorCourses);
+
+            commands.put(1, "View teaching staff");
+            commands.put(2, "View course directors");
+            commands.put(3, "View training records for a staff member");
+            commands.put(4, "View courses");
+            commands.put(5, "Add a new teacher");
+            commands.put(6, "Add a new course director");
+            commands.put(7, "Add a new course");
+            commands.put(8, "Update the training records of a staff member");
+            commands.put(9, "Transfer a course to a new director");
+            commands.put(10, "Exit the system");
             
 
         // if user is course director
         } else if (role == 'c') {
 
-            commands.add(viewCourses);
-            commands.add(viewTeachingRequirement);
-            commands.add(viewTeachingRequests);
-            commands.add(createTeachingRequirement);
-            commands.add(updateTeachingRequest);
+            commands.put(1, "View my courses");
+            commands.put(2, "Create new teaching requirements for a course");
+            commands.put(3, "View teaching requirements for a course");
+            commands.put(4, "Create or delete a teaching request");
+            commands.put(5, "View all teaching requests");
+            commands.put(6, "Exit the system");
             
         }
-
-        // both will require an exit function
-        commands.add(exitSystem);
     }
 
     public static void showHelp(char role) {
         // display commands list
         System.out.println("\nSystem options: ");
-        int count = 0;
-        for (String eachCommand : commands) {
-            count++;
-            System.out.println(count + ". " + eachCommand);
+        for (int i : commands.keySet()) {
+            System.out.println(i + ". " + commands.get(i));
         }
 
         // get command from user
@@ -162,32 +136,32 @@ public class UI {
     }
 
     public static void doAdminAction(int selectedNumber) { //TODO fix order
-        String selectedString = commands.get(selectedNumber - 1);
-        System.out.println("\n" + selectedString + ":");
 
-        if (selectedString.equals(viewTrainingRecords)) {
+        System.out.println("\n" + commands.get(selectedNumber) + ":");
+
+        if (selectedNumber == 3) {
             // view training records for a staff member
             System.out.println("Please enter the name of the person whose training records you would like to view:");
             String searchName = getStringInput();
             System.out.println("Training records for: " + searchName); // might not need this line
             display(ManagementSystem.getTraining(searchName));
 
-        } else if (selectedString.equals(viewTeachingStaff)) {
+        } else if (selectedNumber == 1) {
             // view teaching staff
             System.out.println("All Teaching Staff:"); // might not need this line
             display(ManagementSystem.getTeachers());
 
-        } else if (selectedString.equals(viewCourseDirectors)) {
+        } else if (selectedNumber == 2) {
             // view course directors
             System.out.println("All Course Directors:"); // might not need this line
             display(ManagementSystem.getDirectors());
 
-        }else if (selectedString.equals(addDirector)) {
+        }else if (selectedNumber == 6) {
             System.out.println("Please enter the name of the course director that you would like to add:");
             String newDirectorName = getStringInput();
             ManagementSystem.addDirector(newDirectorName);
 
-        } else if (selectedString.equals(updateDirectorCourses)) {
+        } else if (selectedNumber == 9) {
             // transfer director for a course
             System.out.println("Please enter the new director name:");
             String newDirName = getStringInput();
@@ -202,12 +176,12 @@ public class UI {
             System.out.println(courseName + " transferred to " + newDirName);
             display(ManagementSystem.getCourses(newDirName));
 
-        } else if (selectedString.equals(viewCourses)) {
+        } else if (selectedNumber == 4) {
             // view courses
             System.out.println("All Courses:"); 
             display(ManagementSystem.getCourses());
 
-        } else if (selectedString.equals(updateTrainingRecords)) {
+        } else if (selectedNumber == 8) {
             // display the current training records
             System.out.println("Please enter the staff name to view training records:");
             String inputName = getStringInput();
@@ -223,13 +197,13 @@ public class UI {
             display(ManagementSystem.getTraining(inputName));
 
 
-        } else if (selectedString.equals(addTeacher)) {
+        } else if (selectedNumber == 5) {
             System.out.println("Please enter the name of the teacher that you would like to add:");
             String newTeacherName = getStringInput();
             ManagementSystem.addTeacher(newTeacherName);
 
 
-        } else if (selectedString.equals(addCourse)) {
+        } else if (selectedNumber == 7) {
             System.out.println("Please enter the name of the course that you would like to add:");
             String newCourseName = getStringInput();
 
@@ -240,7 +214,7 @@ public class UI {
 
             System.out.println("New course: " + newCourseName + " directed by " + directorName);
 
-        } else if (selectedString.equals(exitSystem)) {
+        } else if (selectedNumber == 10) {
             // exit the system.
             systemActive = false;
             System.out.println("Exiting System.");
@@ -252,26 +226,26 @@ public class UI {
         String selectedString = commands.get(selectedNumber - 1);
         System.out.println("\n" + selectedString + ":");
 
-        if (selectedString.equals(viewDirectorCourses)) {
+        if (selectedNumber == 1) {
             // view my courses
             System.out.println("Courses Directed by " + name + ":"); // might not need this line
             display(ManagementSystem.getCourses(name));
 
-        } else if (selectedString.equals(createTeachingRequirement)) {
+        } else if (selectedNumber == 2) {
             // create new teaching requirements
             // TODO not sure how to do this bit yet
 
-        } else if (selectedString.equals(viewTeachingRequirement)) {
+        } else if (selectedNumber == 3) {
             // TODO 
 
-        }else if (selectedString.equals(viewTeachingRequests)) {
+        }else if (selectedNumber == 5) {
             // TODO 
 
-        }else if (selectedString.equals(updateTeachingRequest)) {
+        }else if (selectedNumber == 4) {
             // create new teaching request
             // TODO not sure how to do this bit yet
 
-        } else if (selectedString.equals(exitSystem)) {
+        } else if (selectedNumber == 6) {
             // exit the system.
             systemActive = false;
             System.out.println("Exiting System.");
