@@ -12,34 +12,38 @@ import java.util.Scanner;
  */
 
 public class UI {
-    static char role;
-    static String name;
-    static ArrayList<String> commands = new ArrayList<>();
-    static boolean systemActive;
+    private char role;
+    private String name;
+    private ArrayList<String> commands = new ArrayList<>();
+    private boolean systemActive = true;
+    private final managementSystem managementSystem = new managementSystem();
+    
+    
+    
 
     /*
      * User Input Methods
      */
-    public static String getStringInput() {
+    public String getStringInput() {
         Scanner s = new Scanner(System.in);
         return s.nextLine();
     }
 
-    public static char getCharInput() {
+    public char getCharInput() {
         String input = getStringInput();
         return input.charAt(0);
     }
 
-    public static int getNumberInput() {
+    public int getNumberInput() {
         char a = getCharInput();
         return Character.getNumericValue(a);
     }
 
-    public static String checkForName(List<Staff> listOfStaff) {
+    public String checkForName(StaffList staffList) {
         while (true) {
             String userInputName = getStringInput();
 
-            for (Staff eachStaffMember : listOfStaff) {
+            for (Staff eachStaffMember : staffList.getStaffList()) {
                 String staffName = eachStaffMember.getName();
                 if (staffName.toLowerCase().contains(userInputName.toLowerCase())) {
                     return eachStaffMember.getName();
@@ -51,7 +55,7 @@ public class UI {
     /*
      * System functionality Methods
      */
-    public static void getRole() {
+    public void getRole() {
         // first find out if they are admin or course director
         System.out.println("Please enter 'a' for admin or 'c' for course director: ");
         role = getCharInput();
@@ -79,10 +83,10 @@ public class UI {
         }
     }
 
-    public static void getName() {
+    public void getName() {
         System.out.println("Please enter name eg. 'Mark' :");
 
-        name = checkForName(ManagementSystem.getDirectors());
+        name = checkForName(managementSystem.getDirectors());
 
         System.out.println("Accessing system as " + name + ", continue? (y/n) :");
         char response = getCharInput();
@@ -93,7 +97,7 @@ public class UI {
         }
     }
 
-    public static void generateHelp(char role) {
+    public void generateHelp(char role) {
         // if user is admin
         if (role == 'a') {
             String viewTrainingRecords = "View training records for a staff member";
@@ -127,7 +131,7 @@ public class UI {
         commands.add(exitSystem);
     }
 
-    public static void showHelp(char role) {
+    public void showHelp(char role) {
         // display commands list
         System.out.println("System options: ");
         int count = 0;
@@ -154,26 +158,26 @@ public class UI {
         }
     }
 
-    public static void doAdminAction(int selectedNumber) {
+    public void doAdminAction(int selectedNumber) {
         String selectedString = commands.get(selectedNumber - 1);
         System.out.println("\n" + selectedString + ":");
 
         if (selectedString.contains("View training records")) {
             // view training records for a staff member
             System.out.println("Please enter the name of the person whose training records you would like to view:");
-            String searchName = checkForName(ManagementSystem.getListOfAllStaffNames());
+            String searchName = checkForName(managementSystem.getTeachers());
             System.out.println("Training records for:" + searchName); // might not need this line
-            display(ManagementSystem.getTrainingRecords(searchName));
+            display(managementSystem.getTrainingRecords(searchName));
 
         } else if (selectedString.contains("View teaching staff")) {
             // view teaching staff
             System.out.println("All Teaching Staff:"); // might not need this line
-            display(ManagementSystem.getTeachers());
+            display(managementSystem.getTeachers());
 
         } else if (selectedString.contains("View courses")) {
             // view courses
             System.out.println("All Courses:"); // might not need this line
-            display(ManagementSystem.getCourses());
+            display(managementSystem.getCourses());
 
         } else if (selectedString.contains("Update the training records")) {
             // get the training records of a staff member
@@ -187,17 +191,18 @@ public class UI {
             // exit the system.
             systemActive = false;
             System.out.println("Exiting System.");
+            managementSystem.exit();
         }
     }
 
-    public static void doCourseDirectorAction(int selectedNumber) {
+    public void doCourseDirectorAction(int selectedNumber) {
         String selectedString = commands.get(selectedNumber - 1);
         System.out.println("\n" + selectedString + ":");
 
         if (selectedString.contains("my courses")) {
             // view my courses
             System.out.println("Courses Directed by " + name + ":"); // might not need this line
-            display(ManagementSystem.getCourses(name));
+            display(managementSystem.getCourses(name));
 
         } else if (selectedString.contains("Create new teaching requirements")) {
             // create new teaching requirements
@@ -214,7 +219,7 @@ public class UI {
         }
     }
 
-    public static void display(Object o) {
+    public void display(Object o) {
         // display it
     }
 
@@ -223,9 +228,10 @@ public class UI {
      */
 
     public static void main(String[] args) {
-        getRole();
-        while (systemActive) {
-            showHelp(role);
+    	UI ui = new UI();
+        ui.getRole();
+        while (ui.systemActive) {
+            ui.showHelp(ui.role);
         }
     }
 }

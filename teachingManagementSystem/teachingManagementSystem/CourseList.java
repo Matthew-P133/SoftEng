@@ -1,3 +1,4 @@
+package teachingManagementSystem;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -10,15 +11,18 @@ public class CourseList {
     public CourseList(List<Course> courses){
         this.courses = courses;
     }
+    
+    public CourseList(){ 
+    }
 
     /**
      * Filter a list of courses by staff ID.
      * @param ID the ID of the staff member.
      * @return CourseList : list with all courses associated with the passed ID.
      */
-    public List<Course> filterByStaffID(int ID){
+    public CourseList filterByStaffID(int ID){
         return new CourseList(courses.parallelStream()
-                    .filter(course -> (course.getDirector().geID() == ID || course.getTeacher().getID() == ID))
+                    .filter(course -> (course.getDirector().getID() == ID || course.getTeacher().getID() == ID))
                     .collect(Collectors.toList()));
     }
 
@@ -45,7 +49,7 @@ public class CourseList {
 
     public void addCourse(Course course){
         courses.add(course);
-    }
+    } 
 
     public static List<String> getTeachingRequests() {
         return teachingRequests;

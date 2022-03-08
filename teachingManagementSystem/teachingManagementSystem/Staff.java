@@ -10,12 +10,12 @@ package teachingManagementSystem;
 public class Staff {
     // Attributes
     String name;
-    String ID;
+    int ID;
 
     // Contructor
-    public Staff(String name, String id){
+    public Staff(String name, int id){
         this.name = name;
-        this.id = id;
+        this.ID = id;
     }
 
     // Getters
@@ -23,7 +23,7 @@ public class Staff {
         return this.name;
     }
 
-    public String getID(){
+    public int getID(){
         return this.ID;
     }
 

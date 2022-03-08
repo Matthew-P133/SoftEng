@@ -1,3 +1,4 @@
+package teachingManagementSystem;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -33,8 +34,9 @@ public class Course {
         return teachingRequirements;
     }
 
-    public void addTeachingRequirements(String requirement) {
-        teachingRequirements.add(requirement);
+    public void addTeachingRequirements(Set<String> requirement) {
+        //teachingRequirements.add(requirement);
+    	//TODO
     }
 
     public String getCourseName() {
@@ -68,4 +70,9 @@ public class Course {
                         (director.getName()+ " " + director.getID()),
                         (teacher.getName() + " " + teacher.getID()));
     }
+
+	public void removeTeachingRequirements(Set<String> requirements) {
+		// TODO
+		
+	}
 }
