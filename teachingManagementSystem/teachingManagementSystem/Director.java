@@ -11,13 +11,12 @@ import java.util.Set;
  *
  */
 
-public class Director extends Staff implements Serializable{
+public class Director extends Staff implements Serializable {
     // A set to store a teacher's training 
  
     // Constructor
     public Director(String name){
        super(name);
-
     }
 
 

@@ -19,7 +19,7 @@ import java.util.Set;
 public class ManagementSystem { 
 
 	private static String username = "admin";
-	private static final File file = new File("PTT_system_data");
+	private static final File file = new File(System.getProperty("user.dir") + File.separator + "teachingManagementSystem" + File.separator + "PTT_system_data");
 	private static CourseList courses;
 	private static StaffList staff;
 	
