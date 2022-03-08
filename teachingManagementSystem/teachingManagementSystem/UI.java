@@ -53,8 +53,8 @@ public class UI {
     }
 
     public static int getNumberInput() {
-        char a = getCharInput();
-        return Character.getNumericValue(a);
+        String a = getStringInput();
+        return Integer.parseInt(a);
     }
 
     /*
