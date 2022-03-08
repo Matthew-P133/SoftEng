@@ -11,10 +11,9 @@ public class Course implements Serializable {
     private Staff director;
     private Staff teacher;
 
-    public Course(String name, Staff director, Staff teacher){
+    public Course(String name){
         this.name = name;
-        this.director = director;
-        this.teacher = teacher;
+
         teachingRequirements = new HashSet<>();
     }
 

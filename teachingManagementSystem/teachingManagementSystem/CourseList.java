@@ -37,7 +37,7 @@ public class CourseList implements Serializable {
      */
     public Course filterByCourseName(String courseName){
         return courses.parallelStream()
-                .filter(course -> course.equals(new Course(courseName, null, null)))
+                .filter(course -> course.equals(new Course(courseName)))
                 .findFirst().orElse(null);
     }
 
@@ -48,8 +48,8 @@ public class CourseList implements Serializable {
         return returnString.toString();
     }
 
-    public void addCourse(Course course){
-        courses.add(course);
+    public void addCourse(String name) {
+        Course course = new Course(name);
     } 
 
     public static List<String> getTeachingRequests() {
@@ -60,8 +60,19 @@ public class CourseList implements Serializable {
         CourseList.teachingRequests.add(teachingRequest);
     }
 
-    public List<Course> getCourseList() {
+    public List<Course> getCourses() {
         return courses;
     }
+
+	public List<Course> getCourses(String courseName) {
+		List<Course> filteredCourses = new LinkedList<Course>();
+		
+		for (Course c : courses) {
+			if (c.getCourseName().equals(courseName)) {
+				filteredCourses.add(c);
+			}
+		}
+		return filteredCourses;
+	}
 
 }

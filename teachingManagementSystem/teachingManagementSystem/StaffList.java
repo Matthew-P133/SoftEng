@@ -17,8 +17,8 @@ import java.util.Set;
 public class StaffList implements Serializable {
     private List<Staff> staffList = new LinkedList<>();
     private List<Teacher> teacherList = new LinkedList<>();
-    private List<Director> directorList = new LinkedList<>();
     private List<Staff> teacherTraingList = new LinkedList<>();
+    private  List<Director> directorList = new LinkedList<>();
 
     // Constructor
     public StaffList(List<Staff> staffList){
@@ -36,8 +36,8 @@ public class StaffList implements Serializable {
     
     public void addDirector(String name) {
     	Director director = new Director(name);
-    	addStaffMember(director);
-    	directorList.add(director);
+    	addStaffMember(director); 
+		directorList.add(director);
     }
 
     // add staff member

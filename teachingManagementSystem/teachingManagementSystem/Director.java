@@ -2,6 +2,8 @@ package teachingManagementSystem;
 
 import java.io.Serializable;
 import java.util.HashSet;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -13,11 +15,24 @@ import java.util.Set;
 
 public class Director extends Staff implements Serializable {
     // A set to store a teacher's training 
+	
+	List<Course> courseList;
  
     // Constructor
     public Director(String name){
        super(name);
+       courseList = new LinkedList<Course>();
     }
+
+	public List<Course> getCourses() {
+		
+		return courseList;
+	}
+
+	public void addCourse(Course course) {
+		courseList.add(course);
+		
+	}
 
 
 

@@ -33,26 +33,43 @@ public class ManagementSystem {
 	
 	
 	
-	public static CourseList getCourses(String courseName) {
+	public static List<Course> getCourses(String directorName) {
 		
-		CourseList filteredCourses = null;
+		List<Course> filteredCourses = null;
 		
-		// TODO
+		
+		Director director = null;
+		try {
+			director = getDirectors(directorName).get(0);
+			filteredCourses = director.getCourses();			
+			
+		} catch (IndexOutOfBoundsException e) {
+			System.out.println("Sorry, can't find a director with that name.");
+			return null;
+		}
+
+		return filteredCourses;
+	}
+	
+	public static List<Course> getCourses() {
+		
+		List<Course> filteredCourses = null;
+		
+		filteredCourses = courses.getCourses();
 		
 		return filteredCourses;
 	}
 	
-	public static CourseList getCourses() {
-		
-		CourseList courses = null;
-		
-		// TODO
-		
-		return courses;
-	}
-	
 	public static void addTeacher(String name) {
 		staff.addTeacher(name);
+	}
+	
+	public static void addDirector(String name) {
+		staff.addDirector(name);
+	}
+	
+	public static void addCourse(String name) {
+		courses.addCourse(name);
 	}
 	
 	
@@ -118,36 +135,38 @@ public class ManagementSystem {
 	
 	
 	public static boolean addTeachingRequirements(String courseName, Set<String> requirements) {
-		
-		Course course = getCourses(courseName).getCourseList().get(0);
-		
-		if (course == null) {
-			return false;
-		}
-		course.addTeachingRequirements(requirements); 
-		return true;
+//		
+		//TODO
+//		Course course = getCourses(courseName).getCourseList().get(0);
+//		
+//		if (course == null) {
+//			return false;
+//		}
+//		course.addTeachingRequirements(requirements); 
+		return false;
 	}
 	
 	
 	public static boolean removeTeachingRequirements(String courseName, Set<String> requirements) {
-		
-		Course course = getCourses(courseName).getCourseList().get(0);
-		
-		if (course == null) {
-			return false;
-		}
-		course.removeTeachingRequirements(requirements);
+//		
+//		Course course = getCourses(courseName).getCourseList().get(0);
+//		
+//		if (course == null) {
+//			return false;
+//		}
+//		course.removeTeachingRequirements(requirements);
 		return true;
 	}
 	
 	
 	public static boolean makeTeachingRequest(String courseName) {
 		
-		Course course = getCourses(courseName).getCourseList().get(0);
-		if (course == null) {
-			return false;
-		}
-		CourseList.addTeachingRequest(courseName);
+		//TODO
+//		Course course = getCourses(courseName).getCourseList().get(0);
+//		if (course == null) {
+//			return false;
+//		}
+//		CourseList.addTeachingRequest(courseName);
 		return false;
 		
 	}
@@ -195,7 +214,6 @@ public class ManagementSystem {
 			FileOutputStream fileOutputStream = new FileOutputStream(file);
 			ObjectOutputStream objectOutputStream = new ObjectOutputStream(fileOutputStream)
 		) {
-			file.delete();
 			objectOutputStream.writeObject(courses);
 			objectOutputStream.writeObject(staff);
 			status = true;
@@ -210,6 +228,13 @@ public class ManagementSystem {
 	public static StaffList getDirectors() {
 		// TODO 
 		return null;
+	}
+	
+
+	public static List<Director> getDirectors(String directorName) {
+		List<Director> filteredDirectors = staff.getDirectors(directorName);
+		return filteredDirectors;
+		
 	}
 
 
@@ -233,6 +258,55 @@ public class ManagementSystem {
 		} else {
 			addTraining(teacherName, newTraining);
 		}
+		
+	}
+	
+
+	public static void updateCourse(String directorName, String courseName) {
+		
+		List<Course> existingCourses = getCourses(directorName);
+		
+		if (existingCourses.contains(courseName)) {
+			removeCourse(directorName, courseName);
+		} else {
+			addCourse(directorName, courseName);
+		}
+		
+	}
+
+
+
+	private static boolean addCourse(String directorName, String courseName) {
+		
+		Director director = getDirectors(directorName).get(0);
+		List<Course> filteredCourses = getCoursesByName(courseName);
+		Course c = filteredCourses.get(0);
+
+		if (director == null) {
+			return false;
+		} else {
+			if (c != null) {
+				director.addCourse(c);
+				return true;
+			} else {
+				return false;
+			}
+		}
+
+	}
+
+
+	private static List<Course> getCoursesByName(String courseName) {
+
+		List<Course> filteredCourses = courses.getCourses(courseName);
+		return filteredCourses;
+
+	}
+
+
+
+	private static void removeCourse(String directorName, String courseName) {
+		// TODO Auto-generated method stub
 		
 	}
 	
