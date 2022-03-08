@@ -26,6 +26,7 @@ public class UI {
     static String viewCourses = "View courses";
     static String addTeacher = "Add a new teacher";
     static String addDirector = "Add a new course director";
+    static String addCourse = "Add a new course";
     static String updateTrainingRecords = "Update the training records of a staff member";
     static String updateDirectorCourses = "Update courses associated with a course director";
 
@@ -112,6 +113,7 @@ public class UI {
             commands.add(viewCourses);
             commands.add(addTeacher);
             commands.add(addDirector);
+            commands.add(addCourse);
             commands.add(updateTrainingRecords);
             commands.add(updateDirectorCourses);
 
@@ -226,6 +228,11 @@ public class UI {
             String newTeacherName = getStringInput();
             ManagementSystem.addTeacher(newTeacherName);
 
+
+        } else if (selectedString.equals(addCourse)) {
+            System.out.println("Please enter the name of the course that you would like to add:");
+            String newCourseName = getStringInput();
+            ManagementSystem.addCourse(newCourseName);
 
         } else if (selectedString.equals(exitSystem)) {
             // exit the system.
