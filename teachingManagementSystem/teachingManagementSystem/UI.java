@@ -177,8 +177,18 @@ public class UI {
             display(ManagementSystem.getCourses());
 
         } else if (selectedString.contains("Update the training records")) {
-            // get the training records of a staff member
-            // TODO how to write this?
+            // display the current training records
+            System.out.println("Please enter the staff name to view training records:");
+            String inputName = checkForName(ManagementSystem.getTeachers());
+            display(ManagementSystem.getTraining(inputName));
+
+            // get new training to add
+            String newTraining = getStringInput();
+            ManagementSystem.addTraining(inputName, newTraining);
+
+            // display updated
+            display(ManagementSystem.getTraining(inputName));
+
 
         } else if (selectedString.contains("Add a new teacher")) {
             // TODO add a Teacher and update their training
@@ -223,6 +233,8 @@ public class UI {
         // display it
         System.out.println(o.toString());
         System.out.println("");
+
+
     }
 
     /*
