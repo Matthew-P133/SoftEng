@@ -17,6 +17,7 @@ import java.util.Set;
 public class StaffList implements Serializable {
     private List<Staff> staffList = new LinkedList<>();
     private List<Teacher> teacherList = new LinkedList<>();
+    private List<Director> directorList = new LinkedList<>();
     private List<Staff> teacherTraingList = new LinkedList<>();
 
     // Constructor
@@ -32,6 +33,12 @@ public class StaffList implements Serializable {
     	addStaffMember(teacher);
     	teacherList.add(teacher);
     }
+    
+    public void addDirector(String name) {
+    	Director director = new Director(name);
+    	addStaffMember(director);
+    	directorList.add(director);
+    }
 
     // add staff member
     private void addStaffMember(Staff s){
@@ -42,6 +49,37 @@ public class StaffList implements Serializable {
     public List<Staff> getStaffList(){
         return this.staffList;
     }
+    
+    
+    // get directors
+    public List<Director> getDirectors(){
+    	
+    	List<Director> tempDirectors = new LinkedList<Director>();
+    	
+        for(int i=0; i<staffList.size(); i++){
+            if(staffList.get(i) instanceof Director){
+                Director director = (Director) staffList.get(i);
+                tempDirectors.add(director);
+            }
+        }
+        return tempDirectors;
+    }
+
+    // get directors (name)
+
+	public List<Director> getDirectors(String directorName) {
+		List<Director> tempDirectors = new LinkedList<Director>();
+
+		for (int i = 0; i < directorList.size(); i++) {
+			if (directorList.get(i).getName().equals(directorName)) {
+				Director director = (Director) staffList.get(i);
+				tempDirectors.add(director);
+			}
+		}
+		return tempDirectors;
+    }
+  
+    
 
     // get teachers
     public List<Teacher> getTeachers(){
