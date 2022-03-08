@@ -21,14 +21,14 @@ public class UI {
     // below is subject to change, probably going to use a hashmap FIXME
     // admin commands
     static String viewTeachingStaff = "View teaching staff";
-    static String viewCourseDirectors = "View coursse directors";
+    static String viewCourseDirectors = "View course directors";
     static String viewTrainingRecords = "View training records for a staff member";
     static String viewCourses = "View courses";
     static String addTeacher = "Add a new teacher";
     static String addDirector = "Add a new course director";
     static String addCourse = "Add a new course";
     static String updateTrainingRecords = "Update the training records of a staff member";
-    static String updateDirectorCourses = "Update courses associated with a course director";
+    static String updateDirectorCourses = "Transfer a course to a new director";
 
     // course director commands
     static String viewDirectorCourses = "View my courses";
@@ -190,20 +190,13 @@ public class UI {
         } else if (selectedString.equals(updateDirectorCourses)) {
             // transfer director for a course
             System.out.println("Please enter the new director name:");
-            String inputName = getStringInput();
-            display(ManagementSystem.getCourses(inputName));
+            String newDirName = getStringInput();
+            display(ManagementSystem.getCourses(newDirName));
 
             // get new course name to transfer
             System.out.println("Please enter the course that you wish transfer to this director: ");
-            String newCourse = getStringInput();
-            ManagementSystem.updateCourse(inputName, newCourse);
-
-            // TODO check course is a real course that already exists
-
-            // display updated
-            System.out.println(inputName);
-            display(ManagementSystem.getCourses(inputName));
-
+            String courseName = getStringInput();
+            ManagementSystem.updateCourse(newDirName, courseName);
 
         } else if (selectedString.equals(viewCourses)) {
             // view courses
