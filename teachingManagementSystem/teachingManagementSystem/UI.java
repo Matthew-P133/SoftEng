@@ -188,13 +188,13 @@ public class UI {
             ManagementSystem.addDirector(newDirectorName);
 
         } else if (selectedString.equals(updateDirectorCourses)) {
-            // display the current courses for the director
-            System.out.println("Please enter the director name to view courses:");
+            // transfer director for a course
+            System.out.println("Please enter the new director name:");
             String inputName = getStringInput();
             display(ManagementSystem.getCourses(inputName));
 
-            // get new course to add or remove
-            System.out.println("Please enter the course that you wish to add or delete: ");
+            // get new course name to transfer
+            System.out.println("Please enter the course that you wish transfer to this director: ");
             String newCourse = getStringInput();
             ManagementSystem.updateCourse(inputName, newCourse);
 
