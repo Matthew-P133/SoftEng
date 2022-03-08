@@ -130,7 +130,7 @@ public class UI {
 
     public static void showHelp(char role) {
         // display commands list
-        System.out.println("System options: ");
+        System.out.println("\nSystem options: ");
         int count = 0;
         for (String eachCommand : commands) {
             count++;
@@ -138,7 +138,7 @@ public class UI {
         }
 
         // get command from user
-        System.out.println("Please enter number of desired option, eg '1' : ");
+        System.out.println("\nPlease enter number of desired option, eg '1' : ");
         int userInputNumber = getNumberInput();
 
         // check if user has selected a valid option
@@ -163,8 +163,8 @@ public class UI {
             // view training records for a staff member
             System.out.println("Please enter the name of the person whose training records you would like to view:");
             String searchName = checkForName(ManagementSystem.getTeachers());
-            System.out.println("Training records for:" + searchName); // might not need this line
-            display(ManagementSystem.getTrainingRecords(searchName));
+            System.out.println("Training records for: " + searchName); // might not need this line
+            display(ManagementSystem.getTraining(searchName));
 
         } else if (selectedString.contains("View teaching staff")) {
             // view teaching staff
@@ -183,10 +183,12 @@ public class UI {
             display(ManagementSystem.getTraining(inputName));
 
             // get new training to add
+            System.out.println("Please enter the training records that you wish to add: ");
             String newTraining = getStringInput();
             ManagementSystem.addTraining(inputName, newTraining);
 
             // display updated
+            System.out.println(inputName);
             display(ManagementSystem.getTraining(inputName));
 
 
