@@ -11,12 +11,12 @@ import java.util.Scanner;
  *
  */
 
-public static class UI {
-    private char role;
-    private String name;
-    private ArrayList<String> commands = new ArrayList<>();
-    private boolean systemActive = true;
-    private final managementSystem managementSystem = new managementSystem();
+public class UI {
+    private static char role;
+    private static String name;
+    private static ArrayList<String> commands = new ArrayList<>();
+    private static boolean systemActive = true;
+    private static final managementSystem managementSystem = new managementSystem();
     
     
     
@@ -73,10 +73,12 @@ public static class UI {
             System.out.println(">>>>>> Entering Admin System. <<<<<<");
             name = "Admin";
             generateHelp(role);
+            ManagementSystem.start();
         } else if (role == 'c') {
             System.out.println(">>>>>> Entering Course Director System <<<<<<");
             getName();
             generateHelp(role);
+            ManagementSystem.start();
         } else {
             System.out.println("Invalid entry please try again.");
             getRole();
