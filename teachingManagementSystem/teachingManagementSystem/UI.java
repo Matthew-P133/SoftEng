@@ -16,7 +16,7 @@ public class UI {
     private static String name;
     private static ArrayList<String> commands = new ArrayList<>(); 
     private static boolean systemActive;
-    
+
 
     // below is subject to change, probably going to use a hashmap FIXME
     // admin commands
@@ -281,6 +281,6 @@ public class UI {
         while (systemActive) {
             showHelp(role);
         }
-    }
+    } 
 }
  
