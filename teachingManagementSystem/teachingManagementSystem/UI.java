@@ -21,6 +21,7 @@ public class UI {
     // below is subject to change, probably going to use a hashmap FIXME
     // admin commands
     static String viewTeachingStaff = "View teaching staff";
+    static String viewCourseDirectors = "View coursse directors";
     static String viewTrainingRecords = "View training records for a staff member";
     static String viewCourses = "View courses";
     static String addTeacher = "Add a new teacher";
@@ -171,7 +172,12 @@ public class UI {
             System.out.println("All Teaching Staff:"); // might not need this line
             display(ManagementSystem.getTeachers());
 
-        } else if (selectedString.equals(addDirector)) {
+        } else if (selectedString.equals(viewCourseDirectors)) {
+            // view course directors
+            System.out.println("All Course Directors:"); // might not need this line
+            display(ManagementSystem.getDirectors());
+
+        }else if (selectedString.equals(addDirector)) {
             System.out.println("Please enter the name of the course director that you would like to add:");
             String newDirectorName = getStringInput();
             ManagementSystem.addDirector(newDirectorName);
