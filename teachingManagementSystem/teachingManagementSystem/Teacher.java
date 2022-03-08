@@ -14,8 +14,8 @@ public class Teacher extends Staff{
     private Set<String> trainingStatus;
 
     // Contructor
-    public Teacher(String name, String id){
-        super(name, id);
+    public Teacher(String name){
+        super(name);
     }
 
     // add and remove

@@ -8,14 +8,17 @@ package teachingManagementSystem;
  */
 
 public class Staff {
+	static int nextID = 1
+	
     // Attributes
     String name;
     int ID;
 
     // Contructor
-    public Staff(String name, int id){
+    public Staff(String name){
         this.name = name;
-        this.ID = id;
+        this.ID = nextID;
+        nextID++;
     }
 
     // Getters

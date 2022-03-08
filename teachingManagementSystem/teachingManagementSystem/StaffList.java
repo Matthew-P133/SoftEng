@@ -24,11 +24,15 @@ public class StaffList {
     }
     
     public StaffList(){
-       
+    }
+    
+    public void addTeacher(String name) {
+    	Teacher teacher = new Teacher(name);
+    	addStaffMember(teacher);
     }
 
     // add staff member
-    public void addStaffMember(Staff s){
+    private void addStaffMember(Staff s){
         staffList.add(s);
     }
 

@@ -21,7 +21,6 @@ public class ManagementSystem {
 	private static String username = "admin";
 	private static final File file = new File("PTT_system_data");
 	private static CourseList courses;
-	private static StaffList staffList;
 	private static StaffList staff;
 	
 	
@@ -52,24 +51,29 @@ public class ManagementSystem {
 		return courses;
 	}
 	
+	public void addTeacher(String name) {
+		staff.addTeacher(name);
+	}
+	
 	
 	public static StaffList getTeachers(String teacherName) {
 		
-		StaffList filteredTeachers = staffList.getTeachers(teacherName);
+		
+		StaffList filteredTeachers = staff.getTeachers(teacherName);
 		return filteredTeachers;
 	}
 	
 	
 	public static StaffList getTeachers() {
 		
-		StaffList filteredTeachers = staffList.getTeachers();
+		StaffList filteredTeachers = staff.getTeachers();
 		return filteredTeachers;
 	}
 	
 	
 	public static StaffList getTeachers(Set<String> requirements) {
 		
-		StaffList filteredTeachers = staffList.getTeachers(requirements);
+		StaffList filteredTeachers = staff.getTeachers(requirements);
 		return filteredTeachers;
 	}
 	
@@ -152,7 +156,7 @@ public class ManagementSystem {
 			status = true;
 		} catch (IOException e) {
 			courses = new CourseList();
-			staffList = new StaffList();
+			staff = new StaffList();
 			status = false;
 		} finally {
 			return status;
