@@ -58,7 +58,6 @@ public class ManagementSystem {
 	
 	public static StaffList getTeachers(String teacherName) {
 		
-		
 		StaffList filteredTeachers = staff.getTeachers(teacherName);
 		return filteredTeachers;
 	}
@@ -87,6 +86,15 @@ public class ManagementSystem {
 		}
 		teacher.addTraining(requirement);
 		return true;
+	}
+	
+	public static Set<String> getTraining(String teacherName) {
+		Set<String> training = null;
+		Teacher teacher = (Teacher) getTeachers(teacherName).getStaffList().get(0);
+		
+		training = teacher.getTrainingStatus();
+		return training;
+		
 	}
 	
 	
