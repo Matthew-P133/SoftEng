@@ -1,9 +1,10 @@
 package teachingManagementSystem;
+import java.io.Serializable;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class CourseList {
+public class CourseList implements Serializable {
     private static List<String> teachingRequests = new LinkedList<>();
     private List<Course> courses = new LinkedList<>();
 

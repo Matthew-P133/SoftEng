@@ -1,5 +1,7 @@
 package teachingManagementSystem;
 
+import java.io.Serializable;
+
 /**
  * The StaffList class that stores staff objects.
  * It also deals with getting out list of all teachers or a list of teacher filtered by name.
@@ -12,7 +14,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
 
-public class StaffList {
+public class StaffList implements Serializable {
     private List<Staff> staffList = new LinkedList<>();
     private List<Staff> teacherList = new LinkedList<>();
     private List<Staff> teacherNameList = new LinkedList<>();

@@ -155,6 +155,7 @@ public class ManagementSystem {
 			staff = (StaffList) objectInputStream.readObject();
 			status = true;
 		} catch (IOException e) {
+			e.printStackTrace();
 			courses = new CourseList();
 			staff = new StaffList();
 			status = false;
@@ -179,6 +180,7 @@ public class ManagementSystem {
 			FileOutputStream fileOutputStream = new FileOutputStream(file);
 			ObjectOutputStream objectOutputStream = new ObjectOutputStream(fileOutputStream)
 		) {
+			file.delete();
 			objectOutputStream.writeObject(courses);
 			objectOutputStream.writeObject(staff);
 			status = true;

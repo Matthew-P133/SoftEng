@@ -1,5 +1,7 @@
 package teachingManagementSystem;
 
+import java.io.Serializable;
+
 /**
  * The staff class.
  *
@@ -7,11 +9,11 @@ package teachingManagementSystem;
  *
  */
 
-public class Staff {
+public class Staff implements Serializable{
 	static int nextID = 1;
 	
     // Attributes
-    String name;
+    String name; 
     int ID;
 
     // Contructor

@@ -1,5 +1,6 @@
 package teachingManagementSystem;
 
+import java.io.Serializable;
 import java.util.Set;
 
 /**
@@ -9,7 +10,7 @@ import java.util.Set;
  *
  */
 
-public class Teacher extends Staff{
+public class Teacher extends Staff implements Serializable{
     // A set to store a teacher's training
     private Set<String> trainingStatus;
 
