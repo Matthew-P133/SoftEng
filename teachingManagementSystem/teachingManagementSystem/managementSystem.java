@@ -16,7 +16,7 @@ import java.util.Set;
  * @author Matthew
  *
  */
-public class managementSystem {
+public class ManagementSystem {
 
 	private static String username = "admin";
 	private static final File file = new File("PTT_system_data");
@@ -60,14 +60,14 @@ public class managementSystem {
 	}
 	
 	
-	public StaffList getTeachers() {
+	public static StaffList getTeachers() {
 		
 		StaffList filteredTeachers = staffList.getTeachers();
 		return filteredTeachers;
 	}
 	
 	
-	public StaffList getTeachers(Set<String> requirements) {
+	public static StaffList getTeachers(Set<String> requirements) {
 		
 		StaffList filteredTeachers = staffList.getTeachers(requirements);
 		return filteredTeachers;
@@ -110,7 +110,7 @@ public class managementSystem {
 	}
 	
 	
-	public boolean removeTeachingRequirements(String courseName, Set<String> requirements) {
+	public static boolean removeTeachingRequirements(String courseName, Set<String> requirements) {
 		
 		Course course = getCourses(courseName).getCourseList().get(0);
 		
@@ -175,8 +175,8 @@ public class managementSystem {
 			FileOutputStream fileOutputStream = new FileOutputStream(file);
 			ObjectOutputStream objectOutputStream = new ObjectOutputStream(fileOutputStream)
 		) {
-			objectOutputStream.writeObject(this.courses);
-			objectOutputStream.writeObject(this.staff);
+			objectOutputStream.writeObject(courses);
+			objectOutputStream.writeObject(staff);
 			status = true;
 		} catch (IOException e) {
 			status = false;

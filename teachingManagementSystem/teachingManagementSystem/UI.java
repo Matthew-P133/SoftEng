@@ -14,7 +14,7 @@ import java.util.Scanner;
 public class UI {
     private static char role;
     private static String name;
-    private static ArrayList<String> commands = new ArrayList<>();
+    private static ArrayList<String> commands = new ArrayList<>(); 
     private static boolean systemActive;
 
 
@@ -188,7 +188,7 @@ public class UI {
             // exit the system.
             systemActive = false;
             System.out.println("Exiting System.");
-            MementSystem.exit();
+            ManagementSystem.exit();
         }
     }
 
