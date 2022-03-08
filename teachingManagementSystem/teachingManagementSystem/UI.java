@@ -218,6 +218,7 @@ public class UI {
 
     public static void display(Object o) {
         // display it
+        o.toString();
     }
 
     /*
