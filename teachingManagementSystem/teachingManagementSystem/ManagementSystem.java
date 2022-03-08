@@ -221,6 +221,20 @@ public class ManagementSystem {
 	public static void exit() {
 		writeToFile(file);
 	}
+
+
+
+	public static void updateTraining(String teacherName, String newTraining) {
+				
+		Set<String> existingTraining = getTraining(teacherName);
+		
+		if (existingTraining.contains(newTraining)) {
+			removeTraining(teacherName, newTraining);
+		} else {
+			addTraining(teacherName, newTraining);
+		}
+		
+	}
 	
 	
 	

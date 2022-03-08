@@ -169,12 +169,12 @@ public class UI {
             String inputName = getStringInput();
             display(ManagementSystem.getTraining(inputName));
 
-            System.out.println("DEBUG: input Name match is "+ inputName);
+   
 
             // get new training to add
-            System.out.println("Please enter the training records that you wish to add: ");
+            System.out.println("Please enter the training records that you wish to add or delete: ");
             String newTraining = getStringInput();
-            ManagementSystem.addTraining(inputName, newTraining);
+            ManagementSystem.updateTraining(inputName, newTraining);
 
             // display updated
             System.out.println(inputName);
