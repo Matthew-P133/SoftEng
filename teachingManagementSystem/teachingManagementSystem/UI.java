@@ -16,7 +16,26 @@ public class UI {
     private static String name;
     private static ArrayList<String> commands = new ArrayList<>(); 
     private static boolean systemActive;
+    
 
+    // below is subject to change, probably going to use a hashmap FIXME
+    // admin commands
+    static String viewTeachingStaff = "View teaching staff";
+    static String viewTrainingRecords = "View training records for a staff member";
+    static String viewCourses = "View courses";
+    static String addTeacher = "Add a new teacher";
+    static String addDirector = "Add a new course director";
+    static String updateTrainingRecords = "Update the training records of a staff member";
+    static String updateDirectorCourses = "Update courses associated with a course director";
+
+    // course director commands
+    static String viewDirectorCourses = "View my courses";
+    static String createTeachingRequirement = "Create new teaching requirements for a course";
+    static String viewTeachingRequirement = "View teaching requirements for a course";
+    static String updateTeachingRequest = "Create or delete a teaching request";
+    static String viewTeachingRequests = "View all teaching requests";
+
+    static String exitSystem = "Exit the system";
 
     /*
      * User Input Methods
@@ -81,37 +100,31 @@ public class UI {
         }
     }
 
+     /*
+     * FIXME use a hashmap??
+     */
     public static void generateHelp(char role) {
         // if user is admin
         if (role == 'a') {
-            String viewTrainingRecords = "View training records for a staff member";
-            String viewTeachingStaff = "View teaching staff";
-            String addTeacher = "Add a new teacher";
-            String viewCourses = "View courses";
-            String updateTrainingRecords = "Update the training records of a staff member";
-
-            commands.add(viewTrainingRecords);
             commands.add(viewTeachingStaff);
+            commands.add(viewTrainingRecords);
+            commands.add(viewCourses);
             commands.add(addTeacher);
-            commands.add(viewCourses);
+            commands.add(addDirector);
             commands.add(updateTrainingRecords);
+            commands.add(updateDirectorCourses);
 
-            // if user is course director
+        // if user is course director
         } else if (role == 'c') {
-            String viewCourses = "View my courses";
-            String createTeachingRequirement = "Create new teaching requirements for a course";
-            // FIXME do we need to be able to edit teaching requirements for a course?
-            String createTeachingRequest = "Create a new teaching request";
-            // FIXME do we need to be able to remove a new teaching request?
 
             commands.add(viewCourses);
+            commands.add(viewTeachingRequirement);
+            commands.add(viewTeachingRequests);
             commands.add(createTeachingRequirement);
-            commands.add(createTeachingRequest);
-
+            commands.add(updateTeachingRequest);
         }
 
         // both will require an exit function
-        String exitSystem = "Exit the system";
         commands.add(exitSystem);
     }
 
@@ -142,34 +155,55 @@ public class UI {
         }
     }
 
-    public static void doAdminAction(int selectedNumber) {
+    public static void doAdminAction(int selectedNumber) { //TODO fix order
         String selectedString = commands.get(selectedNumber - 1);
         System.out.println("\n" + selectedString + ":");
 
-        if (selectedString.contains("View training records")) {
+        if (selectedString.equals(viewTrainingRecords)) {
             // view training records for a staff member
             System.out.println("Please enter the name of the person whose training records you would like to view:");
             String searchName = getStringInput();
             System.out.println("Training records for: " + searchName); // might not need this line
             display(ManagementSystem.getTraining(searchName));
 
-        } else if (selectedString.contains("View teaching staff")) {
+        } else if (selectedString.equals(viewTeachingStaff)) {
             // view teaching staff
             System.out.println("All Teaching Staff:"); // might not need this line
             display(ManagementSystem.getTeachers());
 
-        } else if (selectedString.contains("View courses")) {
+        } else if (selectedString.equals(addDirector)) {
+            System.out.println("Please enter the name of the course director that you would like to add:");
+            String newDirectorName = getStringInput();
+            ManagementSystem.addDirector(newDirectorName);
+
+        } else if (selectedString.equals(updateDirectorCourses)) {
+            // display the current courses for the director
+            System.out.println("Please enter the director name to view courses:");
+            String inputName = getStringInput();
+            display(ManagementSystem.getTraining(inputName));
+
+            // get new course to add or remove
+            System.out.println("Please enter the course that you wish to add or delete: ");
+            String newCourse = getStringInput();
+            ManagementSystem.updateCourse(inputName, newCourse);
+
+            // TODO check course is a real course that already exists
+
+            // display updated
+            System.out.println(inputName);
+            display(ManagementSystem.getCourses(inputName));
+
+
+        } else if (selectedString.equals(viewCourses)) {
             // view courses
-            System.out.println("All Courses:"); // might not need this line
+            System.out.println("All Courses:"); 
             display(ManagementSystem.getCourses());
 
-        } else if (selectedString.contains("Update the training records")) {
+        } else if (selectedString.equals(updateTrainingRecords)) {
             // display the current training records
             System.out.println("Please enter the staff name to view training records:");
             String inputName = getStringInput();
             display(ManagementSystem.getTraining(inputName));
-
-   
 
             // get new training to add
             System.out.println("Please enter the training records that you wish to add or delete: ");
@@ -181,14 +215,13 @@ public class UI {
             display(ManagementSystem.getTraining(inputName));
 
 
-        } else if (selectedString.contains("Add a new teacher")) {
-            // TODO add a Teacher and update their training
+        } else if (selectedString.equals(addTeacher)) {
             System.out.println("Please enter the name of the teacher that you would like to add:");
             String newTeacherName = getStringInput();
             ManagementSystem.addTeacher(newTeacherName);
 
 
-        } else if (selectedString.contains("Exit")) {
+        } else if (selectedString.equals(exitSystem)) {
             // exit the system.
             systemActive = false;
             System.out.println("Exiting System.");
@@ -200,20 +233,26 @@ public class UI {
         String selectedString = commands.get(selectedNumber - 1);
         System.out.println("\n" + selectedString + ":");
 
-        if (selectedString.contains("my courses")) {
+        if (selectedString.equals(viewDirectorCourses)) {
             // view my courses
             System.out.println("Courses Directed by " + name + ":"); // might not need this line
             display(ManagementSystem.getCourses(name));
 
-        } else if (selectedString.contains("Create new teaching requirements")) {
+        } else if (selectedString.equals(createTeachingRequirement)) {
             // create new teaching requirements
             // TODO not sure how to do this bit yet
 
-        } else if (selectedString.contains("Create a new teaching request")) {
+        } else if (selectedString.equals(viewTeachingRequirement)) {
+            // TODO 
+
+        }else if (selectedString.equals(viewTeachingRequests)) {
+            // TODO 
+
+        }else if (selectedString.equals(updateTeachingRequest)) {
             // create new teaching request
             // TODO not sure how to do this bit yet
 
-        } else if (selectedString.contains("Exit")) {
+        } else if (selectedString.equals(exitSystem)) {
             // exit the system.
             systemActive = false;
             System.out.println("Exiting System.");
@@ -228,8 +267,6 @@ public class UI {
     	} else {
     		System.out.println("Please try again...");
     	}
-
-
     }
 
     /*
