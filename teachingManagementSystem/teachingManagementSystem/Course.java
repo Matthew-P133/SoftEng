@@ -8,11 +8,12 @@ public class Course implements Serializable {
     private static final String[] TRAINING_OPTIONS = {}; //contains the list of all available training options.
     private Set<String> teachingRequirements;
     private String name;
-    private Staff director;
+    private Director director;
     private Staff teacher;
 
-    public Course(String name){
+    public Course(String name, Director director){
         this.name = name;
+        this.director = director;
 
         teachingRequirements = new HashSet<>();
     }
@@ -47,11 +48,11 @@ public class Course implements Serializable {
         this.name = name;
     }
 
-    public Staff getDirector() {
+    public Director getDirector() {
         return director;
     }
 
-    public void setDirector(Staff director) {
+    public void setDirector(Director director) {
         this.director = director;
     }
 
@@ -65,10 +66,10 @@ public class Course implements Serializable {
 
     @Override
     public String toString(){
-        return "Course Name: %s%n Teaching Requirements: %s%n Teacher: %s%n Director: %s%n%n"
+        return "Course Name: %s%n Teaching Requirements: %s%n Director: %s%n%n"
                 .formatted(name, String.join(",", teachingRequirements),
-                        (director.getName()+ " " + director.getID()),
-                        (teacher.getName() + " " + teacher.getID()));
+                        (director.getName()+ " " + director.getID()));
+                      //  (teacher.getName() + " " + teacher.getID()));
     }
 
 	public void removeTeachingRequirements(Set<String> requirements) {

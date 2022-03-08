@@ -67,10 +67,7 @@ public class ManagementSystem {
 	public static void addDirector(String name) {
 		staff.addDirector(name);
 	}
-	
-	public static void addCourse(String name) {
-		courses.addCourse(name);
-	}
+
 	
 	
 	public static List<Teacher> getTeachers(String teacherName) {
@@ -225,9 +222,8 @@ public class ManagementSystem {
 	}
 
 
-	public static StaffList getDirectors() {
-		// TODO 
-		return null;
+	public static List<Director> getDirectors() {
+		return staff.getDirectors();
 	}
 	
 
@@ -276,25 +272,23 @@ public class ManagementSystem {
 
 
 
-	private static boolean addCourse(String directorName, String courseName) {
+	public static boolean addCourse(String directorName, String courseName) {
 		
 		Director director = getDirectors(directorName).get(0);
-		List<Course> filteredCourses = getCoursesByName(courseName);
-		Course c = filteredCourses.get(0);
+
+		
 
 		if (director == null) {
 			return false;
 		} else {
-			if (c != null) {
-				director.addCourse(c);
-				return true;
-			} else {
-				return false;
-			}
-		}
+			Course course = new Course(courseName, director);
+			
+			director.addCourse(course);
+			return true;
+			} 
 
 	}
-
+	
 
 	private static List<Course> getCoursesByName(String courseName) {
 

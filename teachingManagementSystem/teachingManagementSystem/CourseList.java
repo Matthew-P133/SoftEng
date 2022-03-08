@@ -35,11 +35,11 @@ public class CourseList implements Serializable {
      * @param courseName String - The name of the course to find.
      * @return Course - Returns Course object if exists within list. Returns null if does not exist.
      */
-    public Course filterByCourseName(String courseName){
-        return courses.parallelStream()
-                .filter(course -> course.equals(new Course(courseName)))
-                .findFirst().orElse(null);
-    }
+//    public Course filterByCourseName(String courseName){
+//        return courses.parallelStream()
+//                .filter(course -> course.equals(new Course(courseName)))
+//                .findFirst().orElse(null);
+//    }
 
     @Override
     public String toString(){
@@ -48,8 +48,9 @@ public class CourseList implements Serializable {
         return returnString.toString();
     }
 
-    public void addCourse(String name) {
-        Course course = new Course(name);
+    public void addCourse(String name, Director director) {
+        Course course = new Course(name, director);
+        courses.add(course);
     } 
 
     public static List<String> getTeachingRequests() {

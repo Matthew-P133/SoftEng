@@ -72,7 +72,7 @@ public class StaffList implements Serializable {
 
 		for (int i = 0; i < directorList.size(); i++) {
 			if (directorList.get(i).getName().equals(directorName)) {
-				Director director = (Director) staffList.get(i);
+				Director director =  directorList.get(i);
 				tempDirectors.add(director);
 			}
 		}

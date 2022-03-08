@@ -109,6 +109,7 @@ public class UI {
         // if user is admin
         if (role == 'a') {
             commands.add(viewTeachingStaff);
+            commands.add(viewCourseDirectors);
             commands.add(viewTrainingRecords);
             commands.add(viewCourses);
             commands.add(addTeacher);
@@ -116,6 +117,7 @@ public class UI {
             commands.add(addCourse);
             commands.add(updateTrainingRecords);
             commands.add(updateDirectorCourses);
+            
 
         // if user is course director
         } else if (role == 'c') {
@@ -125,6 +127,7 @@ public class UI {
             commands.add(viewTeachingRequests);
             commands.add(createTeachingRequirement);
             commands.add(updateTeachingRequest);
+            
         }
 
         // both will require an exit function
@@ -188,7 +191,7 @@ public class UI {
             // display the current courses for the director
             System.out.println("Please enter the director name to view courses:");
             String inputName = getStringInput();
-            display(ManagementSystem.getTraining(inputName));
+            display(ManagementSystem.getCourses(inputName));
 
             // get new course to add or remove
             System.out.println("Please enter the course that you wish to add or delete: ");
@@ -238,7 +241,7 @@ public class UI {
             String directorName = getStringInput();
             ManagementSystem.addCourse(directorName, newCourseName);
 
-            System.out.println("New course: " + courseName + " directed by " + directorName);
+            System.out.println("New course: " + newCourseName + " directed by " + directorName);
 
         } else if (selectedString.equals(exitSystem)) {
             // exit the system.
