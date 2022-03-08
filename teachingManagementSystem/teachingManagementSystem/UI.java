@@ -198,6 +198,10 @@ public class UI {
             String courseName = getStringInput();
             ManagementSystem.updateCourse(newDirName, courseName);
 
+            // show confirmation
+            System.out.println(courseName + " transferred to " + newDirName);
+            display(ManagementSystem.getCourses(newDirName));
+
         } else if (selectedString.equals(viewCourses)) {
             // view courses
             System.out.println("All Courses:"); 
