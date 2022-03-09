@@ -175,6 +175,7 @@ public class UI {
             // show confirmation
             System.out.println(courseName + " transferred to " + newDirName);
          
+            // TODO show who to transfer from? or course?
 
         } else if (selectedNumber == 4) {
             // view courses
@@ -232,10 +233,23 @@ public class UI {
 
         } else if (selectedNumber == 5) {
             // create new teaching requirements
-            // TODO not sure how to do this bit yet
+            
+            // ask for the course
+            System.out.println("Which course would you like to create or remove requirements for?");
+            String courseName = getStringInput();
+
+            // show them current requirements for that course
+            display(ManagementSystem.queryCourse(courseName)); 
+
+            // add or remove requirements
+            System.out.println("Which requirements would you like to add or remove?");
+            String requirmentInput = getStringInput();
+            ManagementSystem.updateRequirement(courseName, requirmentInput);
+            display(ManagementSystem.queryCourse(courseName));
 
         } else if (selectedNumber == 3) {
             // TODO View teaching requirements for a course
+
 
         }else if (selectedNumber == 2) {
             // TODO View all teaching requests
