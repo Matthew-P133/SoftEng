@@ -222,13 +222,13 @@ public class UI {
     }
 
     public static void doCourseDirectorAction(int selectedNumber) {
-        String selectedString = commands.get(selectedNumber - 1);
+        String selectedString = commands.get(selectedNumber);
         System.out.println("\n" + selectedString + ":");
 
         if (selectedNumber == 1) {
             // view my courses
-            System.out.println("Courses Directed by " + name + ":"); // might not need this line
-          //  display(ManagementSystem.getCourses(name));
+            System.out.println("Courses Directed by " + name + ":");
+            display(ManagementSystem.queryDirectorCourses(name));
 
         } else if (selectedNumber == 2) {
             // create new teaching requirements
