@@ -89,6 +89,7 @@ public class UI {
             commands.put(2, "View course directors");
             commands.put(3, "View training records for a staff member");
             commands.put(4, "View courses");
+            commands.put(12, "View open teaching requests");
             commands.put(5, "Add a new teacher");
             commands.put(6, "Add a new course director");
             commands.put(7, "Add a new course");
@@ -97,17 +98,16 @@ public class UI {
             commands.put(10, "Transfer a course to a new director");
             commands.put(11, "Exit the system");
             
-
         // if user is course director
         } else if (role == 'c') {
 
             commands.put(1, "View my courses");
-            commands.put(5, "Create new teaching requirements for a course"); //TODO
-            commands.put(3, "View teaching requirements for a course"); //TODO
-            commands.put(4, "Create or delete a teaching request"); //TODO
+            commands.put(4, "Create new teaching requirements for a course"); 
+            commands.put(3, "Create or delete a teaching request"); //TODO
             commands.put(2, "View all teaching requests"); //TODO
-            commands.put(6, "Exit the system");
+            commands.put(5, "Exit the system");
             
+            // TODO use switch statements
         }
     }
 
@@ -115,7 +115,7 @@ public class UI {
         // display commands list
         System.out.println("\nSystem options: ");
         for (int i : commands.keySet()) {
-            System.out.println(i + ". " + commands.get(i));
+            System.out.println(i + ". \t" + commands.get(i));
         }
 
         // get command from user
@@ -150,7 +150,11 @@ public class UI {
             System.out.println("All Course Directors:");
             display(ManagementSystem.queryDirectors());
 
-        } else if (selectedNumber == 3) {
+        } else if (selectedNumber == 12) {
+            // view open teaching requests
+            display(ManagementSystem.queryTeachingRequests());
+
+        }else if (selectedNumber == 3) {
             // view training records for a staff member
             System.out.println("Please enter the name of the person whose training records you would like to view:");
             String searchName = getStringInput();																	
@@ -247,7 +251,15 @@ public class UI {
             System.out.println("Courses Directed by " + name + ":");
             display(ManagementSystem.queryDirectorCourses(name));
 
-        } else if (selectedNumber == 5) {
+        }  else if (selectedNumber == 2) {
+            // TODO View all teaching requests
+            
+
+        }else if (selectedNumber == 3) {
+            // Create or delete a teaching request
+            // TODO
+
+        } else if (selectedNumber == 4) {
             // create new teaching requirements
             
             // ask for the course
@@ -269,19 +281,7 @@ public class UI {
                 display(ManagementSystem.queryCourse(courseName));
             }
 
-        } else if (selectedNumber == 3) {
-            // TODO View teaching requirements for a course
-
-
-        }else if (selectedNumber == 2) {
-            // TODO View all teaching requests
-            
-
-        }else if (selectedNumber == 4) {
-            // Create or delete a teaching request
-            // TODO
-
-        } else if (selectedNumber == 6) {
+        }else if (selectedNumber == 5) {
             // exit the system.
             systemActive = false;
             System.out.println("Exiting System.");
