@@ -35,12 +35,10 @@ public class Teacher extends Staff implements Serializable{
         return trainingStatus;
     }
     
-   
-    
     public String getFormattedTraining() {
     	String output = "";
     	for (String string : trainingStatus) {
-    		output += string + " ";
+    		output += string + ", ";
     	}
 		return output;
     }
@@ -52,10 +50,4 @@ public class Teacher extends Staff implements Serializable{
 		}
 		return false;
 	}
-	
-	public String toString() {
-		return super.toString() + " (teacher)";
-	}
-
-
 }

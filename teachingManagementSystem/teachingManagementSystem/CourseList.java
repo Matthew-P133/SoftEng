@@ -8,34 +8,8 @@ public class CourseList implements Serializable {
    
     private List<Course> courses = new LinkedList<>();
     
-    public CourseList() { 
-    	
+    public CourseList() {     	
     }
-
-    /**
-     * Filter a list of courses by staff ID.
-     * @param ID the ID of the staff member.
-     * @return CourseList : list with all courses associated with the passed ID.
-     */
-//    public CourseList filterByStaffID(int ID){
-//        return new CourseList(courses.parallelStream()
-//                    .filter(course -> (course.getDirector().getID() == ID || course.getTeacher().getID() == ID))
-//                    .collect(Collectors.toList()));
-//    }
-
-    /**
-     * Filters the list by course name.
-     * If it finds the course with the specified name, it will return that course.
-     * Otherwise, if no courses with this name are in the list, it will return null.
-     * The method assumes that every course has a unique name.
-     * @param courseName String - The name of the course to find.
-     * @return Course - Returns Course object if exists within list. Returns null if does not exist.
-     */
-//    public Course filterByCourseName(String courseName){
-//        return courses.parallelStream()
-//                .filter(course -> course.equals(new Course(courseName)))
-//                .findFirst().orElse(null);
-//    }
 
     @Override
     public String toString(){

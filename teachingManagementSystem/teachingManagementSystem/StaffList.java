@@ -12,20 +12,13 @@ import java.io.Serializable;
 
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Set;
 
 public class StaffList implements Serializable {
 	
     private List<Staff> staffList = new LinkedList<>();
-  //  private List<Teacher> teacherList = new LinkedList<>();
-  //  private List<Director> directorList = new LinkedList<>();
-
-   
     
     public StaffList(){
-    }
-    
-    
+    }  
    
     // add staff member
     public void addStaffMember(Staff staff){
@@ -36,8 +29,7 @@ public class StaffList implements Serializable {
     public List<Staff> getStaffList(){
         return this.staffList;
     }
-    
-    
+   
     // get directors
     public List<Director> getDirectors(){
     	
@@ -100,19 +92,6 @@ public class StaffList implements Serializable {
 		}
 		return teacher;
     }
-    
-    
-//    // get teachers by training
-//    public List<Teacher> getTeachersByTraining(Set<String> request){
-//    	 List<Teacher> tempTeachers = new LinkedList<Teacher>();
-//        for(int i=0; i<teacherList.size(); i++){
-//            Teacher teacher = teacherList.get(i);
-//            if(teacher.getTrainingStatus().contains(request)){ // TODO check training match
-//                tempTeachers.add(teacherList.get(i));
-//            }
-//        }
-//        return tempTeachers;
-//    }
 
     // toString
     @Override

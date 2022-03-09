@@ -1,10 +1,9 @@
 package teachingManagementSystem;
 
 import java.io.Serializable;
-import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Set;
+
 
 /**
  * The Teacher class inherits the Staff class. 
@@ -53,13 +52,4 @@ public class Director extends Staff implements Serializable {
 		}
 		return false;
 	}
-
-	
-	public String toString() {
-		return super.toString() + " (director)";
-	}
-
-
- 
-
 }

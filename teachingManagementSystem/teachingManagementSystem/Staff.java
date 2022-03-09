@@ -34,7 +34,7 @@ public class Staff implements Serializable{
 
     // toString
     public String toString(){
-        return this.name;
+        return this.name + ", ";
     }
 
 }

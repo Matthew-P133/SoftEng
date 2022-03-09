@@ -6,8 +6,6 @@ import java.util.List;
 import java.util.Set;
 
 public class Course implements Serializable {
-    //TODO TRAINING_OPTIONS needs to be filled in.
-    private static final String[] TRAINING_OPTIONS = {}; //contains the list of all available training options.
     private Set<String> teachingRequirements;
     private String name;
     private Director director;
@@ -78,7 +76,9 @@ public class Course implements Serializable {
     	
     	if (canBeTaughtBy(teacher)) {
     		teachers.add(teacher);
-    		teachingRequests--;
+    		if (teachingRequests >= 1) {
+    			teachingRequests--;
+    		}
     		return true;
     	} else {
     		return false;
@@ -93,7 +93,7 @@ public class Course implements Serializable {
         
 		teachers.remove(teacher);
 		
-		// if teachers automatically create teaching request
+		// if now no teachers automatically create teaching request
 		if (teachers.isEmpty()) {
 			if (teachingRequests == 0) {
 				teachingRequests++;
@@ -110,23 +110,19 @@ public class Course implements Serializable {
     @Override
     public String toString(){
     	
-    	// TODO tidy up
-    	String teacherString = "";
+    	String teacherString = "Teachers: ";
     	
     	for (Teacher t : teachers) {
     		teacherString += t.toString();
     	}
     	
-        return "Course Name: %s%n Teaching Requirements: %s%n Director: %s%n%n"
-                .formatted(name, String.join(",", teachingRequirements),
-                        (director.getName()+ " " + director.getID())
-                        ) + teacherString;
+        return "Course Name: %s%nTeaching Requirements: %s%nDirector: %s%n"
+                .formatted(name, String.join(", ", teachingRequirements),
+                        (director.getName())) + teacherString + "\n\n";
     }
 
 	public boolean hasTeacher(Teacher teacher) {
 		return teachers.contains(teacher);
-		
-		
 	}
 
 	public boolean hasOpenTeachingRequest() {
