@@ -115,7 +115,7 @@ public class UI {
         // display commands list
         System.out.println("\nSystem options: ");
         for (int i : commands.keySet()) {
-            System.out.println(i + ". \t" + commands.get(i));
+            System.out.println(i + ".\t" + commands.get(i));
         }
 
         // get command from user
@@ -252,9 +252,10 @@ public class UI {
             display(ManagementSystem.queryDirectorCourses(name));
 
         }  else if (selectedNumber == 2) {
-            // TODO View all teaching requests
+            // View my open teaching requests
+            System.out.println("Open teaching requests for courses directed by " + name + ":");
+            display(ManagementSystem.queryTeachingRequests(name));
             
-
         }else if (selectedNumber == 3) {
             // Create or delete a teaching request
             // TODO
