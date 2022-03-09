@@ -238,14 +238,20 @@ public class UI {
             System.out.println("Which course would you like to create or remove requirements for?");
             String courseName = getStringInput();
 
-            // show them current requirements for that course
-            display(ManagementSystem.queryCourse(courseName)); 
+            // check if that course belongs to the director
+            if(!ManagementSystem.directorHasCourse(name, courseName)){
+                System.out.println("Sorry this is not one of your courses so you cannot edit the requirements");
+                return;
+            }else {
+                // show them current requirements for that course
+                display(ManagementSystem.queryCourse(courseName)); 
 
-            // add or remove requirements
-            System.out.println("Which requirements would you like to add or remove?");
-            String requirmentInput = getStringInput();
-            ManagementSystem.updateRequirement(courseName, requirmentInput);
-            display(ManagementSystem.queryCourse(courseName));
+                // add or remove requirements
+                System.out.println("Which requirements would you like to add or remove?");
+                String requirmentInput = getStringInput();
+                ManagementSystem.updateRequirement(courseName, requirmentInput);
+                display(ManagementSystem.queryCourse(courseName));
+            }
 
         } else if (selectedNumber == 3) {
             // TODO View teaching requirements for a course
