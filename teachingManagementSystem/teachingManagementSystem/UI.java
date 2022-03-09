@@ -83,18 +83,19 @@ public class UI {
     public static void generateHelp(char role) {
         // if user is admin
         if (role == 'a') {
-            commands.put(1, "View teaching staff");
-            commands.put(2, "View course directors");
-            commands.put(3, "View open teaching requests");
-            commands.put(4, "View training records for a staff member");
-            commands.put(5, "View courses");
-            commands.put(6, "Add a new teacher");
-            commands.put(7, "Add a new course director");
-            commands.put(8, "Add a new course");
-            commands.put(9, "Update teachers for a course");
-            commands.put(10, "Update the training records of a staff member");
-            commands.put(11, "Transfer a course to a new director");
-            commands.put(12, "Exit the system");
+        	commands.put(1, "View all staff");
+            commands.put(2, "View teaching staff");
+            commands.put(3, "View course directors");
+            commands.put(4, "View open teaching requests");
+            commands.put(5, "View training records for a staff member");
+            commands.put(6, "View courses");
+            commands.put(7, "Add a new teacher");
+            commands.put(8, "Add a new course director");
+            commands.put(9, "Add a new course");
+            commands.put(10, "Update teachers for a course");
+            commands.put(11, "Update the training records of a staff member");
+            commands.put(12, "Transfer a course to a new director");
+            commands.put(13, "Exit the system");
             
         // if user is course director
         } else if (role == 'c') {
@@ -137,25 +138,30 @@ public class UI {
         String courseName = "";
 
         switch (selectedNumber) {
-
+        
         case 1:
+        	// view all staff
+        	System.out.println("All Staff:");
+            display(ManagementSystem.queryStaff());
+            break;
+        case 2:
             // view teaching staff
             System.out.println("All Teaching Staff:");
             display(ManagementSystem.queryTeachers());
             break;
 
-        case 2:
+        case 3:
             // view course directors
             System.out.println("All Course Directors:");
             display(ManagementSystem.queryDirectors());
             break;
 
-        case 3:
+        case 4:
             // view open teaching requests
             display(ManagementSystem.queryTeachingRequests());
             break;
 
-        case 4:
+        case 5:
             // view training records for a staff member
             System.out.println("Please enter the name of the person whose training records you would like to view:");
             String searchName = getStringInput();																	
@@ -163,25 +169,25 @@ public class UI {
             display(ManagementSystem.queryTeacherTraining(searchName));
             break;
 
-        case 5:
+        case 6:
             // view courses
             System.out.println("All Courses:"); 
             display(ManagementSystem.queryCourses());
             break;
 
-        case 6:
+        case 7:
             System.out.println("Please enter the name of the teacher that you would like to add:");
             String newTeacherName = getStringInput();
             ManagementSystem.enterTeacher(newTeacherName);
             break;
 
-        case 7:
+        case 8:
             System.out.println("Please enter the name of the course director that you would like to add:");
             String newDirectorName = getStringInput();
             display(ManagementSystem.enterDirector(newDirectorName));
             break;
 
-        case 8:
+        case 9:
             System.out.println("Please enter the name of the course that you would like to add:");
             String newCourseName = getStringInput();
 
@@ -191,7 +197,7 @@ public class UI {
             display(ManagementSystem.enterCourse(newCourseName, directorName));
             break;
 
-        case 9:
+        case 10:
             // update teachers for a course
             // get the course to add or remove teachers
             System.out.println("Please enter the course name to add or remove a teacher:");
@@ -206,7 +212,7 @@ public class UI {
             display(ManagementSystem.queryCourse(courseName));
             break;
 
-        case 10:
+        case 11:
             // display the current training records
             System.out.println("Please enter the staff name to view training records:");
             String inputName = getStringInput();
@@ -222,7 +228,7 @@ public class UI {
             display(ManagementSystem.queryTeacherTraining(inputName));
             break;
 
-        case 11:
+        case 12:
             // transfer director for a course
             System.out.println("Please enter the new director name:");
             String newDirName = getStringInput();						
@@ -237,7 +243,7 @@ public class UI {
             System.out.println(courseName + " transferred to " + newDirName);
             break;
 
-        case 12:
+        case 13:
             // exit the system.
             systemActive = false;
             display(ManagementSystem.exit());

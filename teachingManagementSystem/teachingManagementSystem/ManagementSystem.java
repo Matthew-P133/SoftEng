@@ -119,6 +119,13 @@ public class ManagementSystem {
 		return teacher;
 	}
 	
+	// staff
+	
+	public static List<Staff> queryStaff() {
+		return staff.getStaffList();
+	}
+	
+	
 	// teachers
 	
 	public static String enterTeacher(String name) {

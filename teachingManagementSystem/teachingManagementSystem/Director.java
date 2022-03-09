@@ -54,6 +54,10 @@ public class Director extends Staff implements Serializable {
 		return false;
 	}
 
+	
+	public String toString() {
+		return super.toString() + " (director)";
+	}
 
 
  
