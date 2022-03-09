@@ -242,85 +242,96 @@ public class UI {
         }
     }
 
-    public static void doCourseDirectorAction(int selectedNumber) {
-        String selectedString = commands.get(selectedNumber);
-        System.out.println("\n" + selectedString + ":");
+	public static void doCourseDirectorAction(int selectedNumber) {
+		String selectedString = commands.get(selectedNumber);
+		System.out.println("\n" + selectedString + ":");
+		String courseName = "";
 
-        if (selectedNumber == 1) {
-            // view my courses
-            System.out.println("Courses Directed by " + name + ":");
-            display(ManagementSystem.queryDirectorCourses(name));
+		switch (selectedNumber) {
 
-        }  else if (selectedNumber == 2) {
-            // View my open teaching requests
-            System.out.println("Open teaching requests for courses directed by " + name + ":");
-            display(ManagementSystem.queryTeachingRequests(name));
-            
-        }else if (selectedNumber == 3) {
-            // show user the current open teaching requests
-            System.out.println("Open teaching requests:");
-            display(ManagementSystem.queryTeachingRequests(name));
+		case 1:
+			// view my courses
+			System.out.println("Courses Directed by " + name + ":");
+			display(ManagementSystem.queryDirectorCourses(name));
+			break;
+			
+		case 2:
+			// View my open teaching requests
+			System.out.println("Open teaching requests for courses directed by " + name + ":");
+			display(ManagementSystem.queryTeachingRequests(name));
+			break;
+			
+		case 3:
+			// show user the current open teaching requests
+			System.out.println("Open teaching requests:");
+			display(ManagementSystem.queryTeachingRequests(name));
 
-            // Create or delete a teaching request
-            System.out.println("\nWhich course would you like to create or remove a teaching request for?");
-            String courseName = getStringInput();
+			// Create or delete a teaching request
+			System.out.println("\nWhich course would you like to create or remove a teaching request for?");
+			courseName = getStringInput();
 
-            // would they like to add or remove a teaching request for this course
-            System.out.println("Enter 'a' to add a teaching request or 'r' to remove a teaching request:");
-            char requestType = getCharInput();
-            if(requestType == 'a' || requestType == 'A'){
-                // we want to add a teaching request
-                // how many requests do we want to add?
-                System.out.println("Please enter the number of teaching request that you want to add for this course:");
-                int count = getNumberInput();
-                // pass action to management system
-                display(ManagementSystem.enterTeachingRequest(courseName, count));
-                // display updated list
-                display(ManagementSystem.queryTeachingRequests(name));
+			// would they like to add or remove a teaching request for this course
+			System.out.println("Enter 'a' to add a teaching request or 'r' to remove a teaching request:");
+			char requestType = getCharInput();
+			if (requestType == 'a' || requestType == 'A') {
+				// we want to add a teaching request
+				// how many requests do we want to add?
+				System.out.println("Please enter the number of teaching request that you want to add for this course:");
+				int count = getNumberInput();
+				// pass action to management system
+				display(ManagementSystem.enterTeachingRequest(courseName, count));
+				// display updated list
+				display(ManagementSystem.queryTeachingRequests(name));
 
-            } else if(requestType == 'r' || requestType == 'R'){
-                // we want to remove a teaching request
-                // how many requests do we want to add?
-                System.out.println("Please enter the number of teaching request that you want to remove for this course:");
-                int count = getNumberInput();
-                // pass action to management system
-                display(ManagementSystem.deleteTeachingRequest(courseName, count));
-                // display updated list
-                display(ManagementSystem.queryTeachingRequests(name));
-                
-            }else{
-                System.out.println("Sorry, incorrect input please try again.");
-            }
+			} else if (requestType == 'r' || requestType == 'R') {
+				// we want to remove a teaching request
+				// how many requests do we want to add?
+				System.out.println(
+						"Please enter the number of teaching request that you want to remove for this course:");
+				int count = getNumberInput();
+				// pass action to management system
+				display(ManagementSystem.deleteTeachingRequest(courseName, count));
+				// display updated list
+				display(ManagementSystem.queryTeachingRequests(name));
 
-        } else if (selectedNumber == 4) {
-            // create new teaching requirements
-            
-            // ask for the course
-            System.out.println("Which course would you like to create or remove requirements for?");
-            String courseName = getStringInput();
+			} else {
+				System.out.println("Sorry, incorrect input please try again.");
+			}
+			break;
 
-            // check if that course belongs to the director
-            if(!ManagementSystem.directorHasCourse(name, courseName)){
-                System.out.println("Sorry this is not one of your courses so you cannot edit the requirements");
-                return;
-            }else {
-                // show them current requirements for that course
-                display(ManagementSystem.queryCourse(courseName)); 
+		case 4:
+			// create new teaching requirements
 
-                // add or remove requirements
-                System.out.println("Which requirements would you like to add or remove?");
-                String requirmentInput = getStringInput();
-                ManagementSystem.updateRequirement(courseName, requirmentInput);
-                display(ManagementSystem.queryCourse(courseName));
-            }
+			// ask for the course
+			System.out.println("Which course would you like to create or remove requirements for?");
+			courseName = getStringInput();
 
-        }else if (selectedNumber == 5) {
-            // exit the system.
-            systemActive = false;
-            System.out.println("Exiting System.");
-            display(ManagementSystem.exit());
-        }
-    }
+			// check if that course belongs to the director
+			if (!ManagementSystem.directorHasCourse(name, courseName)) {
+				System.out.println("Sorry this is not one of your courses so you cannot edit the requirements");
+				return;
+			} else {
+				// show them current requirements for that course
+				display(ManagementSystem.queryCourse(courseName));
+
+				// add or remove requirements
+				System.out.println("Which requirements would you like to add or remove?");
+				String requirmentInput = getStringInput();
+				ManagementSystem.updateRequirement(courseName, requirmentInput);
+				display(ManagementSystem.queryCourse(courseName));
+			}
+			break;
+
+		case 5:
+			// exit the system.
+			systemActive = false;
+			System.out.println("Exiting System.");
+			display(ManagementSystem.exit());
+			break;
+		}
+		
+	}
+        
 
     public static void display(Object o) {
         // display it
