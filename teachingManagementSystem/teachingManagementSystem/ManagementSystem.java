@@ -210,6 +210,24 @@ public class ManagementSystem {
 		return courses.getCourses();
 	}
 	
+	public static Course queryCourse(String courseName) {
+		Course course = getCourse(courseName);
+		return course;
+	}
+	
+	public static String updateRequirement(String courseName, String requirement) {
+		Course course = getCourse(courseName);
+		if (course == null) {
+			return "Unsuccessful, course does not exist";
+		} else {
+			if (!course.updateTeachingRequirements(requirement)) {
+				return "Requirement removed";
+			} else {
+				return "Requirement added";
+			}
+		}
+	}
+	
 	public static String transferCourse(String newDirectorName, String courseName) {
 
 		Course c = getCourse(courseName);

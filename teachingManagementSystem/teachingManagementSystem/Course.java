@@ -35,9 +35,15 @@ public class Course implements Serializable {
         return teachingRequirements;
     }
 
-    public void addTeachingRequirements(Set<String> requirement) {
-        //teachingRequirements.add(requirement);
-    	//TODO
+    public boolean updateTeachingRequirements(String requirement) {
+    	if (teachingRequirements.contains(requirement)) {
+    		teachingRequirements.remove(requirement);
+    		return false;
+    	} else {
+    		teachingRequirements.add(requirement);
+    		return true;
+    	}
+
     }
 
     public String getCourseName() {
