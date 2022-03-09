@@ -24,150 +24,24 @@ public class ManagementSystem {
 	private static StaffList staff;
 	
 	
-	public static void start() {
+	public static String start() {
 		boolean status = readFromFile(file);
 		if (!status) {
-			System.err.println("Could not read file, setting up new data structures.");
+			return "Could not read file, setting up new data structures";
+		} else {
+			return "Successfully read from file";
 		}
 	}
 	
-	
-	
-	public static List<Course> getCourses(String directorName) {
-		
-		List<Course> filteredCourses = null;
-		
-		
-		Director director = null;
-		try {
-			director = getDirectors(directorName).get(0);
-			filteredCourses = director.getCourses();			
-			
-		} catch (IndexOutOfBoundsException e) {
-			System.out.println("Sorry, can't find a director with that name.");
-			return null;
+	public static String exit() {
+		boolean status = writeToFile(file);
+		if (status) {
+			return "Successfully wrote data to file";
 		}
-
-		return filteredCourses;
-	}
-	
-	public static List<Course> getCourses() {
-		
-		List<Course> filteredCourses = null;
-		
-		filteredCourses = courses.getCourses();
-		
-		return filteredCourses;
-	}
-	
-	public static void addTeacher(String name) {
-		staff.addTeacher(name);
-	}
-	
-	public static void addDirector(String name) {
-		staff.addDirector(name);
-	}
-
-	
-	
-	public static List<Teacher> getTeachers(String teacherName) {
-		
-		List<Teacher> filteredTeachers = staff.getTeachers(teacherName);
-		return filteredTeachers;
-	}
-	
-	
-	public static List<Teacher> getTeachers() {
-		
-		List<Teacher> filteredTeachers = staff.getTeachers();
-		return filteredTeachers;
-	}
-	
-	
-	public static List<Teacher> getTeachers(Set<String> requirements) {
-		
-		List<Teacher> filteredTeachers = staff.getTeachers(requirements);
-		return filteredTeachers;
-	}
-	
-	
-	public static boolean addTraining(String teacherName, String requirement) {
-		
-		// assumes only one teacher with each name
-		Teacher teacher = getTeachers(teacherName).get(0); 
-		
-		if (teacher == null) {
-			return false;
+		else {
+			return "Error writing to file";
 		}
-		teacher.addTraining(requirement);
-		return true;
 	}
-	
-	public static Set<String> getTraining(String teacherName) {
-		Set<String> training = null;
-		Teacher teacher = null;
-		try {
-			teacher = getTeachers(teacherName).get(0);
-		} catch (IndexOutOfBoundsException e) {
-			System.out.println("Sorry, can't find a teach with that name.");
-			return null;
-		}
-		
-		training = teacher.getTrainingStatus();
-		return training;
-		
-	}
-	
-	
-	public static boolean removeTraining(String teacherName, String requirement) {
-		
-		Teacher teacher = getTeachers(teacherName).get(0); 
-		
-		if (teacher == null) {
-			return false;
-		}
-		teacher.removeTraining(requirement);
-		return true;
-	}
-	
-	
-	public static boolean addTeachingRequirements(String courseName, Set<String> requirements) {
-//		
-		//TODO
-//		Course course = getCourses(courseName).getCourseList().get(0);
-//		
-//		if (course == null) {
-//			return false;
-//		}
-//		course.addTeachingRequirements(requirements); 
-		return false;
-	}
-	
-	
-	public static boolean removeTeachingRequirements(String courseName, Set<String> requirements) {
-//		
-//		Course course = getCourses(courseName).getCourseList().get(0);
-//		
-//		if (course == null) {
-//			return false;
-//		}
-//		course.removeTeachingRequirements(requirements);
-		return true;
-	}
-	
-	
-	public static boolean makeTeachingRequest(String courseName) {
-		
-		//TODO
-//		Course course = getCourses(courseName).getCourseList().get(0);
-//		if (course == null) {
-//			return false;
-//		}
-//		CourseList.addTeachingRequest(courseName);
-		return false;
-		
-	}
-	
 	
 	/**
 	 * Read in data from a specified file, or if an error occurs create fresh course and staff lists
@@ -186,7 +60,6 @@ public class ManagementSystem {
 			staff = (StaffList) objectInputStream.readObject();
 			status = true;
 		} catch (IOException e) {
-			e.printStackTrace();
 			courses = new CourseList();
 			staff = new StaffList();
 			status = false;
@@ -196,7 +69,6 @@ public class ManagementSystem {
 		
 		
 	}
-	
 	
 	/**
 	 * Writes data out to a specified file
@@ -221,90 +93,376 @@ public class ManagementSystem {
 		}
 	}
 
-
-	public static List<Director> getDirectors() {
+	// internal helper methods
+	
+	private static Course getCourse(String name) {
+		Course course = null;
+		course = courses.getCourse(name);
+		return course;
+	}
+	
+	private static Director getDirector(String name) {
+		Director director = null;
+		director = staff.getDirector(name);
+		return director;
+	}
+	
+	private static Director getCourseDirector(String name) {
+		Course course = getCourse(name);
+		Director director = course.getDirector();
+		return director;
+	}
+	
+	private static Teacher getTeacher(String name) {
+		Teacher teacher = null;
+		teacher = staff.getTeacher(name);
+		return teacher;
+	}
+	
+	// teachers
+	
+	public static String enterTeacher(String name) {
+		if (getTeacher(name) != null) {
+			return "Unsuccessful, teacher already exists";
+		} else {
+			Teacher teacher = new Teacher(name);
+			staff.addStaffMember(teacher);
+			return "Teacher added to system";
+		}
+	}
+	
+	public static List<Teacher> queryTeachers() {
+		return staff.getTeachers();
+	}
+	
+	public static String queryTeacherTraining(String name) {
+		Teacher teacher = getTeacher(name);
+		if (teacher != null) {
+			return teacher.getFormattedTraining();
+		} else {
+			return "Teacher does not exist";
+		}
+	}
+	
+	public static String updateTraining(String teacherName, String skill) {
+		
+		Teacher teacher = getTeacher(teacherName);
+		
+		if (teacher != null) {
+			if (teacher.trainedIn(skill)) {
+				teacher.removeTraining(skill);
+				return "Successfully removed training record";
+			} else {
+				teacher.addTraining(skill);
+				return "Successfully added training record";
+			}
+		}
+		return "Unsuccessful, teacher does not exist";
+	}
+	
+	// directors
+	
+	public static String enterDirector(String name) {
+		
+		if (getDirector(name) != null) {
+			return "Unsuccessful, director already exists";
+		} else {
+			Director director = new Director(name);
+			staff.addStaffMember(director);
+			return "Director added to system";
+		}
+	}
+	
+	public static List<Director> queryDirectors() {
 		return staff.getDirectors();
 	}
 	
-
-	public static List<Director> getDirectors(String directorName) {
-		List<Director> filteredDirectors = staff.getDirectors(directorName);
-		return filteredDirectors;
+	public static String queryDirectorCourses(String directorName) {
+		Director director = getDirector(directorName);
 		
-	}
-
-
-	public static Object getTrainingRecords(String searchName) {
-		// TODO
-		return null;
-	}
-	
-	public static void exit() {
-		writeToFile(file);
-	}
-
-
-
-	public static void updateTraining(String teacherName, String newTraining) {
-				
-		Set<String> existingTraining = getTraining(teacherName);
-		
-		if (existingTraining.contains(newTraining)) {
-			removeTraining(teacherName, newTraining);
+		if (director != null) {
+			return director.getFormattedCourses();
 		} else {
-			addTraining(teacherName, newTraining);
+			return "Unsuccessful, director does not exist";
 		}
-		
 	}
 	
-
-	public static void updateCourse(String directorName, String courseName) {
+	// courses
+	
+	public static String enterCourse(String courseName, String directorName) {
+		Director director = getDirector(directorName);
 		
-		List<Course> existingCourses = getCourses(directorName);
-		
-		if (existingCourses.contains(courseName)) {
-			removeCourse(directorName, courseName);
+		if (director != null) {
+			if (getCourse(courseName) == null) {
+				Course course = new Course(courseName, director);
+				courses.addCourse(course);
+				director.addCourse(course);
+				return "Successfully added course";
+			} else {
+				return "Unsuccesful, course already exists";
+			}
 		} else {
-			addCourse(directorName, courseName);
+			return "Unsuccessful, director does not exist";
 		}
-		
-	}
-
-
-
-	public static boolean addCourse(String directorName, String courseName) {
-		
-		Director director = getDirectors(directorName).get(0);
-
-		
-
-		if (director == null) {
-			return false;
-		} else {
-			Course course = new Course(courseName, director);
-			
-			director.addCourse(course);
-			return true;
-			} 
-
 	}
 	
-
-	private static List<Course> getCoursesByName(String courseName) {
-
-		List<Course> filteredCourses = courses.getCourses(courseName);
-		return filteredCourses;
-
+	public static List<Course> queryCourses() {
+		return courses.getCourses();
 	}
+	
+	public static String transferCourse(String newDirectorName, String courseName) {
 
-
-
-	private static void removeCourse(String directorName, String courseName) {
-		// TODO Auto-generated method stub
+		Course c = getCourse(courseName);
 		
+		if (c != null) {
+			Director newDirector = getDirector(newDirectorName);
+			if (newDirector != null) {
+				c.setDirector(newDirector);
+				return "Successfully transfered course to new director";
+			}
+			else {
+				return "Unsuccessful, new director does not exist";
+			}
+		}
+		else {
+			return "Unsuccessful, course does not exist";
+		}
 	}
 	
 	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+//	
+//	public static List<Course> getCourses(String directorName) {
+//		
+//		List<Course> filteredCourses = null;
+//		
+//		
+//		Director director = null;
+//		try {
+//			director = getDirectors(directorName).get(0);
+//			filteredCourses = director.getCourses();			
+//			
+//		} catch (IndexOutOfBoundsException e) {
+//			System.out.println("Sorry, can't find a director with that name.");
+//			return null;
+//		}
+//
+//		return filteredCourses;
+//	}
+	
+//	public static List<Course> getCourses() {
+//		
+//		List<Course> filteredCourses = null;
+//		
+//		filteredCourses = courses.getCourses();
+//		
+//		return filteredCourses;
+//	}
+//	
+//	public static void addTeacher(String name) {
+//		staff.addTeacher(name);
+//	}
+//	
+//	public static void addDirector(String name) {
+//		staff.addDirector(name);
+//	}
+
+	
+	
+//	public static Teacher getTeacher(String teacherName) {
+//		
+//		List<Teacher> filteredTeachers = staff.getTeachers(teacherName);
+//		return filteredTeachers;
+//	}
+	
+	
+//	public static List<Teacher> getTeachers() {
+//		
+//		List<Teacher> filteredTeachers = staff.getTeachers();
+//		return filteredTeachers;
+//	}
+//	
+//	
+//	public static List<Teacher> getTeachers(Set<String> requirements) {
+//		
+//		List<Teacher> filteredTeachers = staff.getTeachers(requirements);
+//		return filteredTeachers;
+//	}
+	
+//	
+//	public static boolean addTraining(String teacherName, String requirement) {
+//		
+//		// assumes only one teacher with each name
+//		Teacher teacher = getTeachers(teacherName).get(0); 
+//		
+//		if (teacher == null) {
+//			return false;
+//		}
+//		teacher.addTraining(requirement);
+//		return true;
+//	}
+//	
+//	public static Set<String> getTraining(String teacherName) {
+//		Set<String> training = null;
+//		Teacher teacher = null;
+//		try {
+//			teacher = getTeachers(teacherName).get(0);
+//		} catch (IndexOutOfBoundsException e) {
+//			System.out.println("Sorry, can't find a teach with that name.");
+//			return null;
+//		}
+//		
+//		training = teacher.getTrainingStatus();
+//		return training;
+//		
+//	}
+//	
+	
+//	public static boolean removeTraining(String teacherName, String requirement) {
+//		
+//		Teacher teacher = getTeachers(teacherName).get(0); 
+//		
+//		if (teacher == null) {
+//			return false;
+//		}
+//		teacher.removeTraining(requirement);
+//		return true;
+//	}
+//	
+//	
+//	public static boolean addTeachingRequirements(String courseName, Set<String> requirements) {
+////		
+//		//TODO
+////		Course course = getCourses(courseName).getCourseList().get(0);
+////		
+////		if (course == null) {
+////			return false;
+////		}
+////		course.addTeachingRequirements(requirements); 
+//		return false;
+//	}
+	
+	
+//	public static boolean removeTeachingRequirements(String courseName, Set<String> requirements) {
+////		
+////		Course course = getCourses(courseName).getCourseList().get(0);
+////		
+////		if (course == null) {
+////			return false;
+////		}
+////		course.removeTeachingRequirements(requirements);
+//		return true;
+//	}
+//	
+//	
+//	public static boolean makeTeachingRequest(String courseName) {
+		
+		//TODO
+//		Course course = getCourses(courseName).getCourseList().get(0);
+//		if (course == null) {
+//			return false;
+//		}
+//		CourseList.addTeachingRequest(courseName);
+//		return false;
+		
+	//}
+	
+	
+	
+
+
+//	public static List<Director> getDirectors() {
+//		return staff.getDirectors();
+//	}
+//	
+
+//	public static List<Director> getDirectors(String directorName) {
+//		List<Director> filteredDirectors = staff.getDirectors(directorName);
+//		return filteredDirectors;
+//		
+//	}
+
+
+//	public static Object getTrainingRecords(String searchName) {
+//		// TODO
+//		return null;
+//	}
+	
+
+
+
+
+//	
+//
+
+//
+//
+//
+//	public static boolean addCourse(String directorName, String courseName) {
+//		
+//		Director director = getDirectors(directorName).get(0);
+//
+//		
+//
+//		if (director == null) {
+//			return false;
+//		} else {
+//			if (getCoursesByName(courseName) == null) {
+//			
+//			Course course = courses.addCourse(courseName, director);
+//			director.addCourse(course);
+//			} else {
+//				Course course = getCoursesByName(courseName).get(0);
+//				director.addCourse(course);
+//			}
+//			return true;
+//			} 
+//
+//	}
+//	
+//
+//	private static List<Course> getCoursesByName(String courseName) {
+//
+//		List<Course> filteredCourses = courses.getCourses(courseName);
+//		return filteredCourses;
+//
+//	}
+//
+//
+//
+//	private static boolean removeCourse(String directorName, String courseName) {
+//		
+//		Director director = getDirectors(directorName).get(0);
+//
+//		
+//
+//		if (director == null) {
+//			return false;
+//		} else {
+//			
+//			director.removeCourse(courseName);
+//			return true;
+//			} 
+//		
+//	}
+//	
+//	
 	
 	
 	

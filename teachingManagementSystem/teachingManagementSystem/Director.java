@@ -25,13 +25,24 @@ public class Director extends Staff implements Serializable {
     }
 
 	public List<Course> getCourses() {
-		
 		return courseList;
 	}
 
 	public void addCourse(Course course) {
 		courseList.add(course);
 		
+	}
+
+	public void removeCourse(Course course) {
+		courseList.remove(course);
+	}
+
+	public String getFormattedCourses() {
+		String output = "";
+		for (Course course : courseList) {
+			output += course.toString() + " ";
+		}
+		return output;
 	}
 
 

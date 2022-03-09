@@ -1,6 +1,7 @@
 package teachingManagementSystem;
 import java.io.Serializable;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 public class Course implements Serializable {
@@ -9,12 +10,11 @@ public class Course implements Serializable {
     private Set<String> teachingRequirements;
     private String name;
     private Director director;
-    private Staff teacher;
+    private List<Teacher> teachers;
 
     public Course(String name, Director director){
         this.name = name;
         this.director = director;
-
         teachingRequirements = new HashSet<>();
     }
 
@@ -53,15 +53,19 @@ public class Course implements Serializable {
     }
 
     public void setDirector(Director director) {
+    	if (this.director != null) {
+    		director.removeCourse(this);
+    	}
         this.director = director;
+        
     }
 
-    public Staff getTeacher() {
-        return teacher;
+    public List<Teacher> getTeachers() {
+        return teachers;
     }
 
-    public void setTeacher(Staff teacher) {
-        this.teacher = teacher;
+    public void addTeacher(Teacher teacher) {
+        teachers.add(teacher);
     }
 
     @Override

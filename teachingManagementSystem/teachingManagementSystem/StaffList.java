@@ -15,34 +15,21 @@ import java.util.List;
 import java.util.Set;
 
 public class StaffList implements Serializable {
+	
     private List<Staff> staffList = new LinkedList<>();
-    private List<Teacher> teacherList = new LinkedList<>();
-    private List<Staff> teacherTraingList = new LinkedList<>();
-    private  List<Director> directorList = new LinkedList<>();
+  //  private List<Teacher> teacherList = new LinkedList<>();
+  //  private List<Director> directorList = new LinkedList<>();
 
-    // Constructor
-    public StaffList(List<Staff> staffList){
-        this.staffList = staffList;
-    }
+   
     
     public StaffList(){
     }
     
-    public void addTeacher(String name) {
-    	Teacher teacher = new Teacher(name);
-    	addStaffMember(teacher);
-    	teacherList.add(teacher);
-    }
     
-    public void addDirector(String name) {
-    	Director director = new Director(name);
-    	addStaffMember(director); 
-		directorList.add(director);
-    }
-
+   
     // add staff member
-    private void addStaffMember(Staff s){
-        staffList.add(s);
+    public void addStaffMember(Staff staff){
+        staffList.add(staff);
     }
 
     // get staff list
@@ -67,16 +54,19 @@ public class StaffList implements Serializable {
 
     // get directors (name)
 
-	public List<Director> getDirectors(String directorName) {
-		List<Director> tempDirectors = new LinkedList<Director>();
+	public Director getDirector(String directorName) {
+		
+		Director director = null;
 
-		for (int i = 0; i < directorList.size(); i++) {
-			if (directorList.get(i).getName().equals(directorName)) {
-				Director director =  directorList.get(i);
-				tempDirectors.add(director);
+		for (Staff staff : staffList) {
+			if (staff instanceof Director) {
+				if (staff.getName().equals(directorName)) {
+					director = (Director) staff;
+					break;
+				}
 			}
 		}
-		return tempDirectors;
+		return director;
     }
   
     
@@ -96,28 +86,33 @@ public class StaffList implements Serializable {
     }
 
     // get teachers (name)
-    public List<Teacher> getTeachers(String name){
-    	 List<Teacher> tempTeachers = new LinkedList<Teacher>();
-        for(int i=0; i<teacherList.size(); i++){
-            if (teacherList.get(i).getName().equals(name)){
-                tempTeachers.add(teacherList.get(i));
-            }
-        }
-        return tempTeachers;
+    public Teacher getTeacher(String teacherName) {
+		
+		Teacher teacher = null;
+
+		for (Staff staff : staffList) {
+			if (staff instanceof Teacher) {
+				if (staff.getName().equals(teacherName)) {
+					teacher = (Teacher) staff;
+					break;
+				}
+			}
+		}
+		return teacher;
     }
     
     
-    // get teachers by training
-    public List<Teacher> getTeachersByTraining(Set<String> request){
-    	 List<Teacher> tempTeachers = new LinkedList<Teacher>();
-        for(int i=0; i<teacherList.size(); i++){
-            Teacher teacher = teacherList.get(i);
-            if(teacher.getTrainingStatus().contains(request)){ // TODO check training match
-                tempTeachers.add(teacherList.get(i));
-            }
-        }
-        return tempTeachers;
-    }
+//    // get teachers by training
+//    public List<Teacher> getTeachersByTraining(Set<String> request){
+//    	 List<Teacher> tempTeachers = new LinkedList<Teacher>();
+//        for(int i=0; i<teacherList.size(); i++){
+//            Teacher teacher = teacherList.get(i);
+//            if(teacher.getTrainingStatus().contains(request)){ // TODO check training match
+//                tempTeachers.add(teacherList.get(i));
+//            }
+//        }
+//        return tempTeachers;
+//    }
 
     // toString
     @Override
@@ -128,9 +123,4 @@ public class StaffList implements Serializable {
         }
         return staffListOutput; 
     }
-
-	public List<Teacher> getTeachers(Set<String> requirements) {
-		// TODO Auto-generated method stub
-		return null;
-	}
 }

@@ -15,24 +15,42 @@ public class Teacher extends Staff implements Serializable{
     // A set to store a teacher's training
     private Set<String> trainingStatus; 
 
-    // Contructor
+    // Constructor
     public Teacher(String name){
         super(name);
-       trainingStatus = new HashSet<String>();
+        trainingStatus = new HashSet<String>();
     }
 
-    // add and remove
-    public void addTraining(String request){
-        trainingStatus.add(request);
+    // add and remove training
+    public void addTraining(String training){
+        trainingStatus.add(training);
     }
 
-    public void removeTraining(String request){
-        trainingStatus.remove(request);
+    public void removeTraining(String training){
+        trainingStatus.remove(training);
     }
 
     // getters
-    public Set<String> getTrainingStatus(){
+    public Set<String> getTraining(){
         return trainingStatus;
     }
+    
+   
+    
+    public String getFormattedTraining() {
+    	String output = "";
+    	for (String string : trainingStatus) {
+    		output += string + " ";
+    	}
+		return output;
+    }
+
+    
+	public boolean trainedIn(String skill) {
+		if (trainingStatus.contains(skill)) {
+			return true;
+		}
+		return false;
+	}
 
 }

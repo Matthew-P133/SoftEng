@@ -7,13 +7,9 @@ import java.util.stream.Collectors;
 public class CourseList implements Serializable {
     private static List<String> teachingRequests = new LinkedList<>();
     private List<Course> courses = new LinkedList<>();
-
-    //Constructor that builds a new list from a passed in list.
-    public CourseList(List<Course> courses){
-        this.courses = courses;
-    }
     
-    public CourseList(){ 
+    public CourseList() { 
+    	
     }
 
     /**
@@ -21,11 +17,11 @@ public class CourseList implements Serializable {
      * @param ID the ID of the staff member.
      * @return CourseList : list with all courses associated with the passed ID.
      */
-    public CourseList filterByStaffID(int ID){
-        return new CourseList(courses.parallelStream()
-                    .filter(course -> (course.getDirector().getID() == ID || course.getTeacher().getID() == ID))
-                    .collect(Collectors.toList()));
-    }
+//    public CourseList filterByStaffID(int ID){
+//        return new CourseList(courses.parallelStream()
+//                    .filter(course -> (course.getDirector().getID() == ID || course.getTeacher().getID() == ID))
+//                    .collect(Collectors.toList()));
+//    }
 
     /**
      * Filters the list by course name.
@@ -48,11 +44,33 @@ public class CourseList implements Serializable {
         return returnString.toString();
     }
 
-    public void addCourse(String name, Director director) {
-        Course course = new Course(name, director);
+    public void addCourse(Course course) {
         courses.add(course);
     } 
 
+    public List<Course> getCourses() {
+    	List<Course> tempCourses = new LinkedList<Course>();
+    	
+    	for (Course c : courses) { 
+    		tempCourses.add(c);
+    	}
+    	
+        return tempCourses;
+    }
+
+	public Course getCourse(String courseName) {
+		
+		Course course = null;
+		
+		for (Course c : courses) {
+			if (c.getCourseName().equals(courseName)) {
+				course = c;
+				break;
+			}
+		}
+		return course;
+	}
+	
     public static List<String> getTeachingRequests() {
         return teachingRequests;
     }
@@ -60,20 +78,4 @@ public class CourseList implements Serializable {
     public static void addTeachingRequest(String teachingRequest) {
         CourseList.teachingRequests.add(teachingRequest);
     }
-
-    public List<Course> getCourses() {
-        return courses;
-    }
-
-	public List<Course> getCourses(String courseName) {
-		List<Course> filteredCourses = new LinkedList<Course>();
-		
-		for (Course c : courses) {
-			if (c.getCourseName().equals(courseName)) {
-				filteredCourses.add(c);
-			}
-		}
-		return filteredCourses;
-	}
-
 }

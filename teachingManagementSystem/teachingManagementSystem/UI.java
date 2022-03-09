@@ -142,65 +142,66 @@ public class UI {
         if (selectedNumber == 3) {
             // view training records for a staff member
             System.out.println("Please enter the name of the person whose training records you would like to view:");
-            String searchName = getStringInput();
-            System.out.println("Training records for: " + searchName); // might not need this line
-            display(ManagementSystem.getTraining(searchName));
+            String searchName = getStringInput();																	
+            System.out.println("Training records for: " + searchName); 
+            display(ManagementSystem.queryTeacherTraining(searchName));
 
         } else if (selectedNumber == 1) {
             // view teaching staff
-            System.out.println("All Teaching Staff:"); // might not need this line
-            display(ManagementSystem.getTeachers());
+            System.out.println("All Teaching Staff:");
+            display(ManagementSystem.queryTeachers());
 
         } else if (selectedNumber == 2) {
             // view course directors
-            System.out.println("All Course Directors:"); // might not need this line
-            display(ManagementSystem.getDirectors());
+            System.out.println("All Course Directors:");
+            display(ManagementSystem.queryDirectors());
 
         }else if (selectedNumber == 6) {
             System.out.println("Please enter the name of the course director that you would like to add:");
             String newDirectorName = getStringInput();
-            ManagementSystem.addDirector(newDirectorName);
+            display(ManagementSystem.enterDirector(newDirectorName));
 
         } else if (selectedNumber == 9) {
             // transfer director for a course
             System.out.println("Please enter the new director name:");
-            String newDirName = getStringInput();
-            display(ManagementSystem.getCourses(newDirName));
+            String newDirName = getStringInput();						
+            display(ManagementSystem.queryDirectorCourses(newDirName));
 
             // get new course name to transfer
             System.out.println("Please enter the course that you wish transfer to this director: ");
             String courseName = getStringInput();
-            ManagementSystem.updateCourse(newDirName, courseName);
+            display(ManagementSystem.transferCourse(newDirName, courseName));			
 
             // show confirmation
             System.out.println(courseName + " transferred to " + newDirName);
-            display(ManagementSystem.getCourses(newDirName));
+         
 
         } else if (selectedNumber == 4) {
             // view courses
             System.out.println("All Courses:"); 
-            display(ManagementSystem.getCourses());
+            display(ManagementSystem.queryCourses());
+           
 
         } else if (selectedNumber == 8) {
             // display the current training records
             System.out.println("Please enter the staff name to view training records:");
             String inputName = getStringInput();
-            display(ManagementSystem.getTraining(inputName));
+            display(ManagementSystem.queryTeacherTraining(inputName));
 
-            // get new training to add
+            // add or remove training records
             System.out.println("Please enter the training records that you wish to add or delete: ");
             String newTraining = getStringInput();
-            ManagementSystem.updateTraining(inputName, newTraining);
+            display(ManagementSystem.updateTraining(inputName, newTraining));		
 
-            // display updated
-            System.out.println(inputName);
-            display(ManagementSystem.getTraining(inputName));
+            // display updated training records
+            System.out.println("Updated training records for " + inputName + ": ");
+            display(ManagementSystem.queryTeacherTraining(inputName));
 
 
         } else if (selectedNumber == 5) {
             System.out.println("Please enter the name of the teacher that you would like to add:");
             String newTeacherName = getStringInput();
-            ManagementSystem.addTeacher(newTeacherName);
+            ManagementSystem.enterTeacher(newTeacherName);
 
 
         } else if (selectedNumber == 7) {
@@ -208,17 +209,15 @@ public class UI {
             String newCourseName = getStringInput();
 
             System.out.println("Please enter the name director for this course:");
-            // TODO check direcotor exists
+            
             String directorName = getStringInput();
-            ManagementSystem.addCourse(directorName, newCourseName);
+            display(ManagementSystem.enterCourse(newCourseName, directorName));
 
-            System.out.println("New course: " + newCourseName + " directed by " + directorName);
 
         } else if (selectedNumber == 10) {
             // exit the system.
             systemActive = false;
-            System.out.println("Exiting System.");
-            ManagementSystem.exit();
+            display(ManagementSystem.exit());
         }
     }
 
@@ -229,7 +228,7 @@ public class UI {
         if (selectedNumber == 1) {
             // view my courses
             System.out.println("Courses Directed by " + name + ":"); // might not need this line
-            display(ManagementSystem.getCourses(name));
+          //  display(ManagementSystem.getCourses(name));
 
         } else if (selectedNumber == 2) {
             // create new teaching requirements
@@ -249,6 +248,7 @@ public class UI {
             // exit the system.
             systemActive = false;
             System.out.println("Exiting System.");
+            display(ManagementSystem.exit());
         }
     }
 
@@ -268,7 +268,7 @@ public class UI {
 
     public static void main(String[] args) {
         systemActive = true;
-        ManagementSystem.start();
+        display(ManagementSystem.start());
 
         getRole();
         while (systemActive) {
