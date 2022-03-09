@@ -67,9 +67,17 @@ public class UI {
     }
 
     public static void getName() {
-        System.out.println("Please enter name eg. 'Mark' :");
-
-        name = getStringInput();
+        System.out.println("Available Director Names:");
+        display(ManagementSystem.queryDirectors());
+        
+        String inputName = "";
+        do{
+            System.out.println("Please enter name eg. 'Mark' :");
+            inputName = getStringInput();
+            
+        }while(!ManagementSystem.validDirectorName(inputName));
+        name = inputName;
+        
 
         System.out.println("Accessing system as " + name + ", continue? (y/n) :");
         char response = getCharInput();
