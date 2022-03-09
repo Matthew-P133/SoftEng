@@ -288,6 +288,27 @@ public class ManagementSystem {
 		return output;
 	}
 	
+public static String queryTeachingRequests(String directorName) {
+	
+		Director director = getDirector(directorName);
+		
+		if (director != null) {
+
+			String output = "";
+
+			List<Course> allCourses = courses.getCourses();
+
+			for (Course course : allCourses) {
+				if (course.hasOpenTeachingRequest() && course.getDirector().equals(director)) {
+					output += course.getFormattedTeachingRequests();
+				}
+			}
+			return output;
+		} else {
+			return "Unsuccessful";
+		}
+	}
+	
 	
 	
 	
