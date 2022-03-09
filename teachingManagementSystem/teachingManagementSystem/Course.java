@@ -54,10 +54,10 @@ public class Course implements Serializable {
 
     public void setDirector(Director director) {
     	if (this.director != null) {
-    		director.removeCourse(this);
+    		this.director.removeCourse(this);
     	}
         this.director = director;
-        
+        this.director.addCourse(this);
     }
 
     public List<Teacher> getTeachers() {
