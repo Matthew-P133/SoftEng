@@ -19,7 +19,7 @@ import javax.swing.JFileChooser;
  */
 public class ManagementSystem { 
 
-	private static File file; //= new File(System.getProperty("user.dir") + File.separator + "teachingManagementSystem" + File.separator + "PTT_system_data");
+	private static File file;
 	private static CourseList courses;
 	private static StaffList staff;
 	
