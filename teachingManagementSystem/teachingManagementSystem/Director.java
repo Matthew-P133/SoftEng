@@ -45,6 +45,15 @@ public class Director extends Staff implements Serializable {
 		return output;
 	}
 
+	public boolean hasCourse(String courseName) {
+		for (Course course : courseList) {
+			if (course.getCourseName().equals(courseName)) {
+				return true;
+			}
+		}
+		return false;
+	}
+
 
 
  

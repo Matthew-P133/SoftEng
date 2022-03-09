@@ -1,6 +1,7 @@
 package teachingManagementSystem;
 import java.io.Serializable;
 import java.util.HashSet;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
 
@@ -16,6 +17,7 @@ public class Course implements Serializable {
         this.name = name;
         this.director = director;
         teachingRequirements = new HashSet<>();
+        teachers = new LinkedList<>();
     }
 
     /**
@@ -67,23 +69,62 @@ public class Course implements Serializable {
     }
 
     public List<Teacher> getTeachers() {
-        return teachers;
+        return teachers; 
     }
 
-    public void addTeacher(Teacher teacher) {
-        teachers.add(teacher);
+    public boolean addTeacher(Teacher teacher) {
+    	
+    	if (canBeTaughtBy(teacher)) {
+    		teachers.add(teacher);
+    		return true;
+    	} else {
+    		return false;
+    	}
+    	
+      
     }
+    
+   
+
+	public void removeTeacher(Teacher teacher) {
+        teachers.remove(teacher);
+        
+        // TODO 
+        
+        // check if teachers empty - if so create teaching request
+        
+    }
+	
+	private boolean canBeTaughtBy(Teacher teacher) {
+		// compare teacher training with course requirements
+		Set<String> teacherTraining = teacher.getTraining();
+		return teacherTraining.containsAll(teachingRequirements);
+	}
 
     @Override
     public String toString(){
+    	
+    	// TODO tidy up
+    	String teacherString = "";
+    	
+    	for (Teacher t : teachers) {
+    		teacherString += t.toString();
+    	}
+    	
         return "Course Name: %s%n Teaching Requirements: %s%n Director: %s%n%n"
                 .formatted(name, String.join(",", teachingRequirements),
-                        (director.getName()+ " " + director.getID()));
-                      //  (teacher.getName() + " " + teacher.getID()));
+                        (director.getName()+ " " + director.getID())
+                        ) + teacherString;
     }
 
 	public void removeTeachingRequirements(Set<String> requirements) {
 		// TODO
+		
+	}
+
+	public boolean hasTeacher(Teacher teacher) {
+		return teachers.contains(teacher);
+		
 		
 	}
 }

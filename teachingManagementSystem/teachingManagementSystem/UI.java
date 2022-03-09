@@ -195,7 +195,7 @@ public class UI {
             String teacherName = getStringInput();
             
             // pass action to management system
-            ManagementSystem.updateTeacher(courseName, teacherName);
+            display(ManagementSystem.updateTeacher(courseName, teacherName));
             display(ManagementSystem.queryCourse(courseName));
           
 

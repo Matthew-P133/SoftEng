@@ -228,6 +228,11 @@ public class ManagementSystem {
 		}
 	}
 	
+	public static boolean directorHasCourse(String directorName, String courseName) {
+		Director director = getDirector(directorName);
+		return director.hasCourse(courseName);
+	}
+	
 	public static String transferCourse(String newDirectorName, String courseName) {
 
 		Course c = getCourse(courseName);
@@ -245,6 +250,28 @@ public class ManagementSystem {
 		else {
 			return "Unsuccessful, course does not exist";
 		}
+	}
+	
+	public static String updateTeacher(String courseName, String teacherName) {
+		Course course = getCourse(courseName);
+		
+		if (course != null) {
+			Teacher teacher = getTeacher(teacherName);
+			if (teacher != null) {
+				if (course.hasTeacher(teacher)) {
+					course.removeTeacher(teacher);
+					return "Successfully removed teacher from course";
+				} else {
+					if (course.addTeacher(teacher)) {
+						return "Successfully added teacher to course";
+					} else {
+						return "Unsuccessful, teacher not qualified to teach course";
+					}
+				}
+			}
+			return "Unsuccessful, teacher does not exist";
+		}
+		return "Unsuccessful, course does not exist";
 	}
 	
 	
