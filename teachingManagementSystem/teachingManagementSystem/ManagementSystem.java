@@ -274,6 +274,20 @@ public class ManagementSystem {
 		return "Unsuccessful, course does not exist";
 	}
 	
+	public static String queryTeachingRequests() {
+		
+		String output = "";
+		
+		List<Course> allCourses = courses.getCourses();
+		
+		for (Course course : allCourses) {
+			if (course.hasOpenTeachingRequest()) {
+				output += course.getFormattedTeachingRequests();
+			}
+		}
+		return output;
+	}
+	
 	
 	
 	

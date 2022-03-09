@@ -5,7 +5,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class CourseList implements Serializable {
-    private static List<String> teachingRequests = new LinkedList<>();
+   
     private List<Course> courses = new LinkedList<>();
     
     public CourseList() { 
@@ -70,12 +70,4 @@ public class CourseList implements Serializable {
 		}
 		return course;
 	}
-	
-    public static List<String> getTeachingRequests() {
-        return teachingRequests;
-    }
-
-    public static void addTeachingRequest(String teachingRequest) {
-        CourseList.teachingRequests.add(teachingRequest);
-    }
 }

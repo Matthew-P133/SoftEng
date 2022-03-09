@@ -12,12 +12,14 @@ public class Course implements Serializable {
     private String name;
     private Director director;
     private List<Teacher> teachers;
+    private int teachingRequests;
 
     public Course(String name, Director director){
         this.name = name;
         this.director = director;
         teachingRequirements = new HashSet<>();
         teachers = new LinkedList<>();
+        teachingRequests = 1;
     }
 
     /**
@@ -76,6 +78,7 @@ public class Course implements Serializable {
     	
     	if (canBeTaughtBy(teacher)) {
     		teachers.add(teacher);
+    		teachingRequests--;
     		return true;
     	} else {
     		return false;
@@ -87,12 +90,15 @@ public class Course implements Serializable {
    
 
 	public void removeTeacher(Teacher teacher) {
-        teachers.remove(teacher);
         
-        // TODO 
-        
-        // check if teachers empty - if so create teaching request
-        
+		teachers.remove(teacher);
+		
+		// if teachers automatically create teaching request
+		if (teachers.isEmpty()) {
+			if (teachingRequests == 0) {
+				teachingRequests++;
+			}
+		}  
     }
 	
 	private boolean canBeTaughtBy(Teacher teacher) {
@@ -126,5 +132,13 @@ public class Course implements Serializable {
 		return teachers.contains(teacher);
 		
 		
+	}
+
+	public boolean hasOpenTeachingRequest() {
+		return teachingRequests > 0 ? true : false;
+	}
+
+	public String getFormattedTeachingRequests() {
+		return String.format("%s: has %d teachers and requires %d more teacher(s)\n", name, teachers.size(), teachingRequests);
 	}
 }
