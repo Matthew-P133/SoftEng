@@ -9,6 +9,8 @@ import java.io.ObjectOutputStream;
 import java.util.List;
 import java.util.Set;
 
+import javax.swing.JFileChooser;
+
 /**
  * Represents the core of the PTT teacher management system. Responsible for reading from and writing to file,
  * and acts as controller for the UI.
@@ -19,12 +21,20 @@ import java.util.Set;
 public class ManagementSystem { 
 
 	private static String username = "admin";
-	private static final File file = new File(System.getProperty("user.dir") + File.separator + "teachingManagementSystem" + File.separator + "PTT_system_data");
+	private static File file; //= new File(System.getProperty("user.dir") + File.separator + "teachingManagementSystem" + File.separator + "PTT_system_data");
 	private static CourseList courses;
 	private static StaffList staff;
 	
 	
 	public static String start() {
+		JFileChooser jfc = new JFileChooser();
+		int returnValue = jfc.showOpenDialog(null);
+		
+		if (returnValue == JFileChooser.APPROVE_OPTION) {
+			file = jfc.getSelectedFile();
+		}
+		
+		
 		boolean status = readFromFile(file);
 		if (!status) {
 			return "Could not read file, setting up new data structures";
