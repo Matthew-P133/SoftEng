@@ -104,7 +104,7 @@ public class UI {
             commands.put(1, "View my courses");
             commands.put(4, "Create new teaching requirements for a course"); 
             commands.put(3, "Create or delete a teaching request"); //TODO
-            commands.put(2, "View all teaching requests"); //TODO
+            commands.put(2, "View all teaching requests"); 
             commands.put(5, "Exit the system");
             
             // TODO use switch statements
@@ -257,8 +257,40 @@ public class UI {
             display(ManagementSystem.queryTeachingRequests(name));
             
         }else if (selectedNumber == 3) {
+            // show user the current open teaching requests
+            System.out.println("Open teaching requests:");
+            display(ManagementSystem.queryTeachingRequests(name));
+
             // Create or delete a teaching request
-            // TODO
+            System.out.println("\nWhich course would you like to create or remove a teaching request for?");
+            String courseName = getStringInput();
+
+            // would they like to add or remove a teaching request for this course
+            System.out.println("Enter 'a' to add a teaching request or 'r' to remove a teaching request:");
+            char requestType = getCharInput();
+            if(requestType == 'a' || requestType == 'A'){
+                // we want to add a teaching request
+                // how many requests do we want to add?
+                System.out.println("Please enter the number of teaching request that you want to add for this course:");
+                int count = getNumberInput();
+                // pass action to management system
+                ManagementSystem.enterTeachingRequest(courseName, count);
+                // display updated list
+                display(ManagementSystem.queryTeachingRequests(name));
+
+            }if(requestType == 'r' || requestType == 'R'){
+                // we want to remove a teaching request
+                // how many requests do we want to add?
+                System.out.println("Please enter the number of teaching request that you want to remove for this course:");
+                int count = getNumberInput();
+                // pass action to management system
+                ManagementSystem.removeTeachingRequest(courseName, count);
+                // display updated list
+                display(ManagementSystem.queryTeachingRequests(name));
+                
+            }else{
+                System.out.println("Sorry, incorrect input please try again.");
+            }
 
         } else if (selectedNumber == 4) {
             // create new teaching requirements
