@@ -101,10 +101,10 @@ public class UI {
         } else if (role == 'c') {
 
             commands.put(1, "View my courses");
-            commands.put(2, "Create new teaching requirements for a course");
-            commands.put(3, "View teaching requirements for a course");
-            commands.put(4, "Create or delete a teaching request");
-            commands.put(5, "View all teaching requests");
+            commands.put(5, "Create new teaching requirements for a course"); //TODO
+            commands.put(3, "View teaching requirements for a course"); //TODO
+            commands.put(4, "Create or delete a teaching request"); //TODO
+            commands.put(2, "View all teaching requests"); //TODO
             commands.put(6, "Exit the system");
             
         }
@@ -230,19 +230,20 @@ public class UI {
             System.out.println("Courses Directed by " + name + ":");
             display(ManagementSystem.queryDirectorCourses(name));
 
-        } else if (selectedNumber == 2) {
+        } else if (selectedNumber == 5) {
             // create new teaching requirements
             // TODO not sure how to do this bit yet
 
         } else if (selectedNumber == 3) {
-            // TODO 
+            // TODO View teaching requirements for a course
 
-        }else if (selectedNumber == 5) {
-            // TODO 
+        }else if (selectedNumber == 2) {
+            // TODO View all teaching requests
+            
 
         }else if (selectedNumber == 4) {
-            // create new teaching request
-            // TODO not sure how to do this bit yet
+            // Create or delete a teaching request
+            // TODO
 
         } else if (selectedNumber == 6) {
             // exit the system.
