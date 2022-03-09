@@ -274,17 +274,17 @@ public class UI {
                 System.out.println("Please enter the number of teaching request that you want to add for this course:");
                 int count = getNumberInput();
                 // pass action to management system
-                ManagementSystem.enterTeachingRequest(courseName, count);
+                display(ManagementSystem.enterTeachingRequest(courseName, count));
                 // display updated list
                 display(ManagementSystem.queryTeachingRequests(name));
 
-            }if(requestType == 'r' || requestType == 'R'){
+            } else if(requestType == 'r' || requestType == 'R'){
                 // we want to remove a teaching request
                 // how many requests do we want to add?
                 System.out.println("Please enter the number of teaching request that you want to remove for this course:");
                 int count = getNumberInput();
                 // pass action to management system
-                ManagementSystem.removeTeachingRequest(courseName, count);
+                display(ManagementSystem.deleteTeachingRequest(courseName, count));
                 // display updated list
                 display(ManagementSystem.queryTeachingRequests(name));
                 

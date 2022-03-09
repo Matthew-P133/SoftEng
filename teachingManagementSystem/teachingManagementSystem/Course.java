@@ -123,11 +123,6 @@ public class Course implements Serializable {
                         ) + teacherString;
     }
 
-	public void removeTeachingRequirements(Set<String> requirements) {
-		// TODO
-		
-	}
-
 	public boolean hasTeacher(Teacher teacher) {
 		return teachers.contains(teacher);
 		
@@ -140,5 +135,28 @@ public class Course implements Serializable {
 
 	public String getFormattedTeachingRequests() {
 		return String.format("%s: has %d teachers and requires %d more teacher(s)\n", name, teachers.size(), teachingRequests);
+	}
+
+	public void addTeachingRequests(int requests) {
+		teachingRequests += requests;
+		
+	}
+
+	public boolean deleteTeachingRequests(int requests) {
+		
+		// always ok to decrease teaching requests to 1
+		if (teachingRequests > requests) {
+			teachingRequests -= requests;
+			return true;
+		}
+		// should only decrease teaching requests to 0 if course has teachers
+		else if (teachingRequests >= requests && !teachers.isEmpty()) {
+			teachingRequests -= requests;
+			return true;
+		}
+		// never decrease teaching requests below 0
+		return false;
+		
+		
 	}
 }

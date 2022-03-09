@@ -288,10 +288,10 @@ public class ManagementSystem {
 		return output;
 	}
 	
-public static String queryTeachingRequests(String directorName) {
-	
+	public static String queryTeachingRequests(String directorName) {
+
 		Director director = getDirector(directorName);
-		
+
 		if (director != null) {
 
 			String output = "";
@@ -307,6 +307,29 @@ public static String queryTeachingRequests(String directorName) {
 		} else {
 			return "Unsuccessful";
 		}
+	}
+	
+	public static String enterTeachingRequest(String courseName, int requests) {
+		Course course = getCourse(courseName);
+		
+		if (course != null) {
+			course.addTeachingRequests(requests);
+			return "Successfully addedd teaching requests(s)";
+		}
+		return "Unsuccessful, course does not exist";
+	}
+	
+	public static String deleteTeachingRequest(String courseName, int requests) {
+		Course course = getCourse(courseName);
+		
+		if (course != null) {
+			if(course.deleteTeachingRequests(requests)) {
+				return "Successfully removed teaching requests(s)";
+			} else {
+				return "Unsuccessful, cannot delete that many requests";
+			}
+		}
+		return "Unsuccessful, course does not exist";
 	}
 	
 	
