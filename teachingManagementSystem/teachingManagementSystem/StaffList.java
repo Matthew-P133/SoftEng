@@ -13,9 +13,17 @@ import java.io.Serializable;
 import java.util.LinkedList;
 import java.util.List;
 
+/**
+* Stores a list of all staff (teachers and directors) currently contained in the PTT management system.
+* Contains methods to return either a specific teacher or director, or all teachers, or all directors.
+* 
+* @author Lin Yun Jen
+*/
 public class StaffList implements Serializable {
 	
-    private List<Staff> staffList = new LinkedList<>();
+
+	private static final long serialVersionUID = 1L;
+	private List<Staff> staffList = new LinkedList<>();
     
     public StaffList(){
     }  
@@ -94,7 +102,6 @@ public class StaffList implements Serializable {
     }
 
     // toString
-    @Override
     public String toString(){
         String staffListOutput = "";
         for(int i=0;i<staffList.size();i++){

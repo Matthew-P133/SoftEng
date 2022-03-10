@@ -5,14 +5,17 @@ import java.util.HashSet;
 import java.util.Set;
 
 /**
- * The Teacher class inherits the Staff class. 
- * This class deals with the training data of teachers.
+ * The Teacher class extends the Staff class. This class deals with information relating specifically
+ * to staff who are teachers, namely their training.
  * @author Lin Yun Jen
  *
  */
-
 public class Teacher extends Staff implements Serializable{
-    // A set to store a teacher's training
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	// A set to store a teacher's training
     private Set<String> trainingStatus; 
 
     // Constructor

@@ -11,8 +11,8 @@ import java.util.List;
 import javax.swing.JFileChooser;
 
 /**
- * Represents the core of the PTT teacher management system. Responsible for reading from and writing to file,
- * and acts as controller for the UI.
+ * Represents the core of the PTT teacher management system. Responsible for reading from and writing 
+ * to a selected file (currently using Java's object (de)serialisation). Acts as controller for the UI.
  * 
  * @author Matthew
  *
@@ -22,7 +22,6 @@ public class ManagementSystem {
 	private static File file;
 	private static CourseList courses;
 	private static StaffList staff;
-	
 	
 	public static String start() {
 		JFileChooser jfc = new JFileChooser();

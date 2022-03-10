@@ -3,13 +3,19 @@ package teachingManagementSystem;
 import java.io.Serializable;
 
 /**
- * The staff class.
+ * The staff class. Stores basic information common to all
+ * sub-types of staff.
  *
  * @author Lin Yun Jen
  *
  */
 
 public class Staff implements Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	static int nextID = 1;
 	
     // Attributes

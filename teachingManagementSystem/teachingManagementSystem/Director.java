@@ -4,17 +4,16 @@ import java.io.Serializable;
 import java.util.LinkedList;
 import java.util.List;
 
-
 /**
- * The Teacher class inherits the Staff class. 
- * This class deals with the training data of teachers.
+ * The Director class extends the Staff class. This class keeps track of the courses a 
+ * director is currently in charge of, as well as allowing for courses to be added or removed from this director.
+ * 
  * @author Lin Yun Jen
  *
  */
-
 public class Director extends Staff implements Serializable {
-    // A set to store a teacher's training 
-	
+
+	private static final long serialVersionUID = 1L;
 	List<Course> courseList;
  
     // Constructor

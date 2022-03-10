@@ -3,14 +3,12 @@ package teachingManagementSystem;
 import java.util.HashMap;
 import java.util.Scanner;
 
-
 /**
  * User Interface for the system.
  *
  * @author Hannah
  *
  */
-
 public class UI {
     private static char role;
     private static String name;

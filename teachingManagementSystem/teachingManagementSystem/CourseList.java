@@ -1,12 +1,19 @@
 package teachingManagementSystem;
+
 import java.io.Serializable;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.stream.Collectors;
 
+/**
+* Stores a list of all courses currently contained in the PTT management system, and
+* allows courses to be added to or deleted from the system.
+* 
+* @author Val
+*/
 public class CourseList implements Serializable {
    
-    private List<Course> courses = new LinkedList<>();
+	private static final long serialVersionUID = 1L;
+	private List<Course> courses = new LinkedList<>();
     
     public CourseList() {     	
     }

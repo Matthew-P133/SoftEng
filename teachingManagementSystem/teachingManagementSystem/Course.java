@@ -1,12 +1,23 @@
 package teachingManagementSystem;
+
 import java.io.Serializable;
 import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
 
+/**
+ * A course has a director and is taught by a number of teachers.
+ * A teacher can only teach a course if they have training in a number of teaching requirements
+ * (e.g. 'Maths' or 'French'), which are stored in a set. The field teaching requests represents 
+ * the number of teaching positions currently unfilled in this course.
+ * 
+ * @author Val
+ */
 public class Course implements Serializable {
-    private Set<String> teachingRequirements;
+    
+	private static final long serialVersionUID = 1L;
+	private Set<String> teachingRequirements;
     private String name;
     private Director director;
     private List<Teacher> teachers;
