@@ -20,25 +20,25 @@ import java.util.List;
 * @author Lin Yun Jen
 */
 public class StaffList implements Serializable {
-	
 
 	private static final long serialVersionUID = 1L;
 	private List<Staff> staffList = new LinkedList<>();
     
-    public StaffList(){
-    }  
+	// default constructor (used for instantiating in the case that an empty or unreadable file was provided)
+    public StaffList(){}  
    
-    // add staff member
+    // setters
+    
     public void addStaffMember(Staff staff){
         staffList.add(staff);
     }
 
-    // get staff list
+    // getters
+    
     public List<Staff> getStaffList(){
         return this.staffList;
     }
    
-    // get directors
     public List<Director> getDirectors(){
     	
     	List<Director> tempDirectors = new LinkedList<Director>();
@@ -51,8 +51,6 @@ public class StaffList implements Serializable {
         }
         return tempDirectors;
     }
-
-    // get directors (name)
 
 	public Director getDirector(String directorName) {
 		
@@ -69,9 +67,6 @@ public class StaffList implements Serializable {
 		return director;
     }
   
-    
-
-    // get teachers
     public List<Teacher> getTeachers(){
     	
     	List<Teacher> tempTeachers = new LinkedList<Teacher>();
@@ -85,7 +80,6 @@ public class StaffList implements Serializable {
         return tempTeachers;
     }
 
-    // get teachers (name)
     public Teacher getTeacher(String teacherName) {
 		
 		Teacher teacher = null;
@@ -101,7 +95,6 @@ public class StaffList implements Serializable {
 		return teacher;
     }
 
-    // toString
     public String toString(){
         String staffListOutput = "";
         for(int i=0;i<staffList.size();i++){

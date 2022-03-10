@@ -15,20 +15,17 @@ public class CourseList implements Serializable {
 	private static final long serialVersionUID = 1L;
 	private List<Course> courses = new LinkedList<>();
     
-    public CourseList() {     	
-    }
+	// default constructor (used for instantiating in the case that an empty or unreadable file was provided)
+    public CourseList() {}
 
-    @Override
-    public String toString(){
-        StringBuilder returnString = new StringBuilder();
-        courses.forEach(course -> returnString.append(course.toString()));
-        return returnString.toString();
-    }
-
+    // setters
+    
     public void addCourse(Course course) {
         courses.add(course);
     } 
 
+    // getters
+    
     public List<Course> getCourses() {
     	List<Course> tempCourses = new LinkedList<Course>();
     	
@@ -51,4 +48,11 @@ public class CourseList implements Serializable {
 		}
 		return course;
 	}
+	
+	public String toString(){
+        StringBuilder returnString = new StringBuilder();
+        courses.forEach(course -> returnString.append(course.toString()));
+        return returnString.toString();
+    }
+
 }

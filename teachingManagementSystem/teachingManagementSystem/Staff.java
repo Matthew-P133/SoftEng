@@ -11,25 +11,21 @@ import java.io.Serializable;
  */
 
 public class Staff implements Serializable{
-	/**
-	 * 
-	 */
+
 	private static final long serialVersionUID = 1L;
-
+    private String name; 
+    private int ID;
+    
+    // controls the ID a new staff member is given on initialisation
 	static int nextID = 1;
-	
-    // Attributes
-    String name; 
-    int ID;
 
-    // Contructor
     public Staff(String name){
         this.name = name;
         this.ID = nextID;
         nextID++;
     }
 
-    // Getters
+    // getters
     public String getName(){
         return this.name;
     }
@@ -38,9 +34,7 @@ public class Staff implements Serializable{
         return this.ID;
     }
 
-    // toString
     public String toString(){
         return this.name + ", ";
     }
-
 }

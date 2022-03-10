@@ -72,8 +72,6 @@ public class ManagementSystem {
 		} finally {
 			return status;
 		} 
-		
-		
 	}
 	
 	/**
@@ -125,14 +123,13 @@ public class ManagementSystem {
 		return teacher;
 	}
 	
-	// staff
+	// methods relating to staff
 	
 	public static List<Staff> queryStaff() {
 		return staff.getStaffList();
 	}
 	
-	
-	// teachers
+	// methods relating to teachers
 	
 	public static String enterTeacher(String name) {
 		if (getTeacher(name) != null) {
@@ -173,7 +170,7 @@ public class ManagementSystem {
 		return "Unsuccessful, teacher does not exist";
 	}
 	
-	// directors
+	// methods relating to directors
 	
 	public static String enterDirector(String name) {
 		
@@ -207,7 +204,7 @@ public class ManagementSystem {
 		return true;
 	}
 	
-	// courses
+	// methods relating to courses
 	
 	public static String enterCourse(String courseName, String directorName) {
 		Director director = getDirector(directorName);

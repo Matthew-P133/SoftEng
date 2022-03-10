@@ -11,20 +11,16 @@ import java.util.Set;
  *
  */
 public class Teacher extends Staff implements Serializable{
-    /**
-	 * 
-	 */
+
 	private static final long serialVersionUID = 1L;
-	// A set to store a teacher's training
     private Set<String> trainingStatus; 
 
-    // Constructor
     public Teacher(String name){
         super(name);
         trainingStatus = new HashSet<String>();
     }
 
-    // add and remove training
+    // setters
     public void addTraining(String training){
         trainingStatus.add(training);
     }
@@ -46,7 +42,6 @@ public class Teacher extends Staff implements Serializable{
 		return output;
     }
 
-    
 	public boolean trainedIn(String skill) {
 		if (trainingStatus.contains(skill)) {
 			return true;

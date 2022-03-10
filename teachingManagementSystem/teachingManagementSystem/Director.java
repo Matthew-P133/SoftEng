@@ -14,25 +14,28 @@ import java.util.List;
 public class Director extends Staff implements Serializable {
 
 	private static final long serialVersionUID = 1L;
-	List<Course> courseList;
+	private List<Course> courseList;
  
-    // Constructor
     public Director(String name){
        super(name);
        courseList = new LinkedList<Course>();
     }
-
-	public List<Course> getCourses() {
-		return courseList;
-	}
+    
+    // setters
 
 	public void addCourse(Course course) {
 		courseList.add(course);
 		
 	}
 
+	// getters
+	
 	public void removeCourse(Course course) {
 		courseList.remove(course);
+	}
+	
+	public List<Course> getCourses() {
+		return courseList;
 	}
 
 	public String getFormattedCourses() {

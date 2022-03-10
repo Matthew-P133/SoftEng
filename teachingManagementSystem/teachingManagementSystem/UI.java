@@ -17,27 +17,27 @@ public class UI {
 
 
     /*
-     * User Input Methods
+     * user input helper methods
      */
-    public static String getStringInput() {
+    private static String getStringInput() {
         Scanner s = new Scanner(System.in);
         return s.nextLine();
     }
 
-    public static char getCharInput() {
+    private static char getCharInput() {
         String input = getStringInput();
         return input.charAt(0);
     }
 
-    public static int getNumberInput() {
+    private static int getNumberInput() {
         String a = getStringInput();
         return Integer.parseInt(a);
     }
 
     /*
-     * System functionality Methods
+     * interface control methods
      */
-    public static void getRole() {
+    private static void getRole() {
         // first find out if they are admin or course director
         System.out.println("Please enter 'a' for admin or 'c' for course director: ");
         role = getCharInput();
@@ -66,7 +66,7 @@ public class UI {
         }
     }
 
-    public static void getName() {
+    private static void getName() {
         System.out.println("Available Director Names:");
         display(ManagementSystem.queryDirectors());
         
@@ -88,7 +88,7 @@ public class UI {
         }
     }
 
-    public static void generateHelp(char role) {
+    private static void generateHelp(char role) {
         // if user is admin
         if (role == 'a') {
         	commands.put(1, "View all staff");
@@ -115,7 +115,7 @@ public class UI {
         }
     }
 
-    public static void showHelp(char role) {
+    private static void showHelp(char role) {
         // display commands list
         System.out.println("\nSystem options: ");
         for (int i : commands.keySet()) {
@@ -140,7 +140,7 @@ public class UI {
         }
     }
 
-    public static void doAdminAction(int selectedNumber) { 
+    private static void doAdminAction(int selectedNumber) { 
 
         System.out.println();
         String courseName = "";
@@ -271,7 +271,7 @@ public class UI {
         }
     }
 
-	public static void doCourseDirectorAction(int selectedNumber) {
+	private static void doCourseDirectorAction(int selectedNumber) {
 		String selectedString = commands.get(selectedNumber);
 		System.out.println();
 		String courseName = "";
@@ -367,7 +367,7 @@ public class UI {
 	}
         
 
-    public static void display(Object o) {
+    private static void display(Object o) {
         
     	// prints object (or each element of list) to the console UI
     	if (o != null) {

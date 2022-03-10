@@ -43,11 +43,25 @@ public class Course implements Serializable {
         }
         return false;
     }
+    
+    // getters
 
     public Set<String> getTeachingRequirements() {
         return teachingRequirements;
     }
 
+    public String getCourseName() {
+        return name;
+    }
+    
+    public Director getDirector() {
+        return director;
+    }
+    
+    public List<Teacher> getTeachers() {
+        return teachers; 
+    }
+    
     public boolean updateTeachingRequirements(String requirement) {
     	if (teachingRequirements.contains(requirement)) {
     		teachingRequirements.remove(requirement);
@@ -56,69 +70,20 @@ public class Course implements Serializable {
     		teachingRequirements.add(requirement);
     		return true;
     	}
-
-    }
-
-    public String getCourseName() {
-        return name;
-    }
-
-    public void setCourseName(String name) {
-        this.name = name;
-    }
-
-    public Director getDirector() {
-        return director;
-    }
-
-    public void setDirector(Director director) {
-    	if (this.director != null) {
-    		this.director.removeCourse(this);
-    	}
-        this.director = director;
-        this.director.addCourse(this);
-    }
-
-    public List<Teacher> getTeachers() {
-        return teachers; 
-    }
-
-    public boolean addTeacher(Teacher teacher) {
-    	
-    	if (canBeTaughtBy(teacher)) {
-    		teachers.add(teacher);
-    		if (teachingRequests >= 1) {
-    			teachingRequests--;
-    		}
-    		return true;
-    	} else {
-    		return false;
-    	}
-    	
-      
     }
     
-   
-
-	public void removeTeacher(Teacher teacher) {
-        
-		teachers.remove(teacher);
-		
-		// if now no teachers automatically create teaching request
-		if (teachers.isEmpty()) {
-			if (teachingRequests == 0) {
-				teachingRequests++;
-			}
-		}  
-    }
-	
-	private boolean canBeTaughtBy(Teacher teacher) {
-		// compare teacher training with course requirements
-		Set<String> teacherTraining = teacher.getTraining();
-		return teacherTraining.containsAll(teachingRequirements);
+	public boolean hasTeacher(Teacher teacher) {
+		return teachers.contains(teacher);
 	}
 
-    @Override
+	public boolean hasOpenTeachingRequest() {
+		return teachingRequests > 0 ? true : false;
+	}
+
+	public String getFormattedTeachingRequests() {
+		return String.format("%s: has %d teachers and requires %d more teacher(s)\n", name, teachers.size(), teachingRequests);
+	}
+    
     public String toString(){
     	
     	String teacherString = "Teachers: ";
@@ -132,21 +97,47 @@ public class Course implements Serializable {
                         (director.getName())) + teacherString + "\n\n";
     }
 
-	public boolean hasTeacher(Teacher teacher) {
-		return teachers.contains(teacher);
-	}
+    // setters
+    
+    public void setCourseName(String name) {
+        this.name = name;
+    }
 
-	public boolean hasOpenTeachingRequest() {
-		return teachingRequests > 0 ? true : false;
-	}
+    public void setDirector(Director director) {
+    	if (this.director != null) {
+    		this.director.removeCourse(this);
+    	}
+        this.director = director;
+        this.director.addCourse(this);
+    }
 
-	public String getFormattedTeachingRequests() {
-		return String.format("%s: has %d teachers and requires %d more teacher(s)\n", name, teachers.size(), teachingRequests);
-	}
-
+    public boolean addTeacher(Teacher teacher) {
+    	
+    	if (canBeTaughtBy(teacher)) {
+    		teachers.add(teacher);
+    		if (teachingRequests >= 1) {
+    			teachingRequests--;
+    		}
+    		return true;
+    	} else {
+    		return false;
+    	} 
+    }
+    
+	public void removeTeacher(Teacher teacher) {
+        
+		teachers.remove(teacher);
+		
+		// if now no teachers automatically create teaching request
+		if (teachers.isEmpty()) {
+			if (teachingRequests == 0) {
+				teachingRequests++;
+			}
+		}  
+    }
+	
 	public void addTeachingRequests(int requests) {
 		teachingRequests += requests;
-		
 	}
 
 	public boolean deleteTeachingRequests(int requests) {
@@ -156,14 +147,19 @@ public class Course implements Serializable {
 			teachingRequests -= requests;
 			return true;
 		}
-		// should only decrease teaching requests to 0 if course has teachers
+		// should only decrease teaching requests to 0 if course has at least one teacher
 		else if (teachingRequests >= requests && !teachers.isEmpty()) {
 			teachingRequests -= requests;
 			return true;
 		}
 		// never decrease teaching requests below 0
 		return false;
-		
-		
+	}
+	
+	
+	// internal helper method to compare teacher training with course requirements
+	private boolean canBeTaughtBy(Teacher teacher) {
+		Set<String> teacherTraining = teacher.getTraining();
+		return teacherTraining.containsAll(teachingRequirements);
 	}
 }
