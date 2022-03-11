@@ -190,7 +190,7 @@ public class UI {
             System.out.println("Please enter the name of the teacher that you would like to add:");
             String newTeacherName = getStringInput();
             System.out.println();
-            ManagementSystem.enterTeacher(newTeacherName);
+            display(ManagementSystem.enterTeacher(newTeacherName));
             break;
 
         case 8:
